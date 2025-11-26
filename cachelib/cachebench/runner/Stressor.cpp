@@ -24,6 +24,7 @@
 #include "cachelib/cachebench/workload/BinaryKVReplayGenerator.h"
 #include "cachelib/cachebench/workload/BlockChunkReplayGenerator.h"
 #include "cachelib/cachebench/workload/KVReplayGenerator.h"
+#include "cachelib/cachebench/workload/OGBinaryReplayGenerator.h"
 #include "cachelib/cachebench/workload/OnlineGenerator.h"
 #include "cachelib/cachebench/workload/PieceWiseReplayGenerator.h"
 #include "cachelib/cachebench/workload/SimpleFlashBenchmarkGenerator.h"
@@ -158,10 +159,13 @@ std::unique_ptr<GeneratorBase> makeGenerator(const StressorConfig& config) {
 
   } else if (config.generator == "simple-flash-benchmark") {
     return std::make_unique<SimpleFlashBenchmarkGenerator>(config);
-  } else {
-    throw std::invalid_argument(fmt::format(
-        "Invalid config: unsupported generator {}", config.generator));
+  } else if (config.generator == "oracle-general-replay") {
+    return std::make_unique<OGBinaryReplayGenerator>(config);
   }
+    else {
+      throw std::invalid_argument(fmt::format(
+          "Invalid config: unsupported generator {}", config.generator));
+    }
 }
 } // namespace
 

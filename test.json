@@ -1,0 +1,31 @@
+{
+    "cache_config": {
+        "cacheSizeMB": 512,
+        "poolRebalanceIntervalSec": 1,
+        "moveOnSlabRelease": false,
+        "rebalanceStrategy": "hits",
+        "allocator": "LRU2Q"
+        // "allocator": "S3FIFO",
+            // "allocator": "TinyLFU",
+            // "allocator": "LRU2Q",
+    },
+    "test_config": {
+        "generator": "oracle-general-replay",
+        "replayGeneratorConfig": {
+            "ampFactor": 1
+        },
+        "useTraceTimer": false,
+        "repeatTraceReplay": false,
+        "repeatOpCount": true,
+        "onlySetIfMiss": false,
+        "enableLookaside": true,
+        "timestampFactor": 1,
+        "numThreads": 1,
+        "ignoreLargeReq": true,
+        "prepopulateCache": true,
+        "zstdTrace": true,
+        "compressed": true,
+        "traceFileName": "/home/cc/CacheLib/ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/202206_kv_traces_all.csv.oracleGeneral.zst",
+        "numOps": 1644762386
+    }
+}
