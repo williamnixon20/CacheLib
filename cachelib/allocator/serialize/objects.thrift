@@ -132,6 +132,25 @@ struct MMS3FIFOCollection {
   1: required map<i32, map<i32, MMS3FIFOObject>> pools;
 }
 
+struct MMS4FIFOConfig {
+  1: required bool updateOnWrite;
+  2: bool updateOnRead = true;
+  3: i32 tinySizePercent;
+  4: i32 ghostSizePercent;
+  5: i32 moveToMainThreshold = 2;
+  6: double smallSkipRatio = 0.0;
+  7: i32 ghostToMainThreshold = 0;
+}
+
+struct MMS4FIFOObject {
+  1: required MMS4FIFOConfig config;
+  2: i64 evictions = 0;
+  3: required MultiDListObject lrus;
+}
+
+struct MMS4FIFOCollection {
+  1: required map<i32, map<i32, MMS4FIFOObject>> pools;
+}
 
 struct MMTinyLFUConfig {
   1: required i32 lruRefreshTime;
