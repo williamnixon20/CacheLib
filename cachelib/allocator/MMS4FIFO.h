@@ -368,7 +368,9 @@ class MMS4FIFO {
     size_t ghostSizePercent{90};
 
     // S4FIFO-specific: frequency threshold for small->main promotion
-    int moveToMainThreshold{2};
+    // Vary parameter in cachebench. 
+    // Grid search in cachebench.
+    int moveToMainThreshold{1};
 
     // S4FIFO-specific: ratio to skip frequency increment in small queue
     double smallSkipRatio{0.0};
@@ -379,12 +381,13 @@ class MMS4FIFO {
     // ========== Feature Collection & Prediction Settings ==========
 
     // Enable feature collection (default: false)
-    bool enableFeatureCollection{false};
+    bool enableFeatureCollection{true};
 
     // Time interval in seconds for periodical feature updates (default: 1440s =
     // 24min) After warmup, features are collected and prediction is called
     // every this interval
     uint64_t featureUpdateIntervalSecs{1440};
+    // Interval to call model, a parameter to control.
 
     // If true, continuously update parameters periodically
     // If false, only update once after first interval
@@ -663,7 +666,6 @@ class MMS4FIFO {
 
     void initFeatureCollection() {
       if (config_.enableFeatureCollection) {
-        // Will be properly initialized when we know sizes
         featureCollector_.init(0, 0, 0, 0, config_.featureNumBuckets);
       }
     }
@@ -888,14 +890,13 @@ bool MMS4FIFO::Container<T, HookPtr>::recordAccess(T& node,
     // Feature collection: record hit
     if (config_.enableFeatureCollection &&
         isWarmedUp_.load(std::memory_order_acquire)) {
-      featureMutex_->lock_combine([this, &node]() {
+
         if (isTiny(node)) {
           featureCollector_.totalHitsSmall++;
         } else {
           featureCollector_.totalHitsMain++;
         }
         featureCollector_.totalRequests++;
-      });
     }
 
     return true;
@@ -946,8 +947,7 @@ bool MMS4FIFO::Container<T, HookPtr>::add(T& node) noexcept {
   // Feature collection: record ghost hit
   if (config_.enableFeatureCollection && ghostContains &&
       isWarmedUp_.load(std::memory_order_acquire)) {
-    featureMutex_->lock_combine(
-        [this]() { featureCollector_.totalHitsGhost++; });
+    featureCollector_.totalHitsGhost++;
   }
 
   return lruMutex_->lock_combine([this, &node, currTime, ghostContains]() {

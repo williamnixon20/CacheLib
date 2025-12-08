@@ -51,6 +51,14 @@ CacheConfig::CacheConfig(const folly::dynamic& configJson) {
   JSONSetVal(configJson, ghostSizePercent);
   JSONSetVal(configJson, tinySizePercent);
 
+  JSONSetVal(configJson, moveToMainThreshold);
+  JSONSetVal(configJson, smallSkipRatio);
+  JSONSetVal(configJson, ghostToMainThreshold);
+
+  JSONSetVal(configJson, enableFeatureCollection);
+  JSONSetVal(configJson, featureUpdateIntervalSecs);
+  JSONSetVal(configJson, enablePeriodicUpdates);
+
   JSONSetVal(configJson, allocFactor);
   JSONSetVal(configJson, maxAllocSize);
   JSONSetVal(configJson, minAllocSize);
@@ -115,7 +123,7 @@ CacheConfig::CacheConfig(const folly::dynamic& configJson) {
   // if you added new fields to the configuration, update the JSONSetVal
   // to make them available for the json configs and increment the size
   // below
-  checkCorrectSize<CacheConfig, 776>();
+  checkCorrectSize<CacheConfig, 816>();
 
   if (numPools != poolSizes.size()) {
     throw std::invalid_argument(folly::sformat(

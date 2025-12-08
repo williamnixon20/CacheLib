@@ -204,10 +204,13 @@ std::unique_ptr<Stressor> Stressor::makeStressor(
       return std::make_unique<AsyncCacheStressor<Lru5B2QAllocator>>(
           cacheConfig, stressorConfig, std::move(generator));
     } else if (cacheConfig.allocator == "S3FIFO") {
-    return std::make_unique<CacheStressor<S3FIFOAllocator>>(
+    return std::make_unique<AsyncCacheStressor<S3FIFOAllocator>>(
         cacheConfig, stressorConfig, std::move(generator));
     } else if (cacheConfig.allocator == "TinyLFU") {
-      return std::make_unique<CacheStressor<TinyLFUAllocator>>(
+      return std::make_unique<AsyncCacheStressor<TinyLFUAllocator>>(
+          cacheConfig, stressorConfig, std::move(generator));
+    } else if (cacheConfig.allocator == "S4FIFO") {
+      return std::make_unique<AsyncCacheStressor<S4FIFOAllocator>>(
           cacheConfig, stressorConfig, std::move(generator));
     }
   } else {
@@ -230,6 +233,9 @@ std::unique_ptr<Stressor> Stressor::makeStressor(
           cacheConfig, stressorConfig, std::move(generator));
     }  else if (cacheConfig.allocator == "TinyLFU") {
       return std::make_unique<CacheStressor<TinyLFUAllocator>>(
+          cacheConfig, stressorConfig, std::move(generator));
+    } else if (cacheConfig.allocator == "S4FIFO") {
+      return std::make_unique<CacheStressor<S4FIFOAllocator>>(
           cacheConfig, stressorConfig, std::move(generator));
     }
   }

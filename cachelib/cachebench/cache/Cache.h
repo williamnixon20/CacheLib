@@ -473,6 +473,26 @@ inline typename LruAllocator::MMConfig makeMMConfig(CacheConfig const& config) {
                                 config.useCombinedLockForIterators);
 }
 
+// S4 FIFO
+template <>
+inline typename S4FIFOAllocator::MMConfig makeMMConfig(
+    CacheConfig const& config) {
+  printf("Making S4FIFO MMConfig with moveToMainThreshold=%d, "
+         "smallSkipRatio=%f, ghostToMainThreshold=%d\n",
+         config.moveToMainThreshold,
+         config.smallSkipRatio,
+         config.ghostToMainThreshold);
+  return S4FIFOAllocator::MMConfig(
+      config.lruUpdateOnWrite,
+      config.lruUpdateOnRead,
+      config.tinySizePercent,
+      config.ghostSizePercent,
+      config.moveToMainThreshold,
+      config.smallSkipRatio,
+      config.ghostToMainThreshold);
+}
+
+
 // LRU
 template <>
 inline typename Lru2QAllocator::MMConfig makeMMConfig(

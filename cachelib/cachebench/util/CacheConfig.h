@@ -43,6 +43,7 @@ class CacheMonitorFactory {
   virtual std::unique_ptr<CacheMonitor> create(Lru5B2QAllocator& cache) = 0;
   virtual std::unique_ptr<CacheMonitor> create(S3FIFOAllocator& cache) = 0;
   virtual std::unique_ptr<CacheMonitor> create(TinyLFUAllocator& cache) = 0;
+  virtual std::unique_ptr<CacheMonitor> create(S4FIFOAllocator& cache) = 0;
 };
 
 // Parse memory tiers configuration from JSON config
@@ -108,6 +109,16 @@ struct CacheConfig : public JSONConfig {
   // S3FIFO params
   size_t ghostSizePercent{90}; // Ghost size as percentage of whole cache
   size_t tinySizePercent{10}; // Tiny size as percentage of whole cache
+
+  // S4FIFO-specific:
+  size_t moveToMainThreshold{2};  // frequency threshold for small->main promotion
+  size_t ghostToMainThreshold{0}; // frequency threshold for ghost->main promotion
+  double smallSkipRatio{0.0}; // ratio to skip frequency increment in small queue
+
+  // ========== Feature Collection & Prediction Settings ==========
+  size_t featureUpdateIntervalSecs{1440}; // Periodical feature updates (secs), default 24min
+  bool enableFeatureCollection{false}; // Enable feature collection
+  bool enablePeriodicUpdates{true}; // If true, continuously update parameters periodically
 
   double allocFactor{1.5};
   // maximum alloc size generated using the alloc factor above.

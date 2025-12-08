@@ -6108,6 +6108,8 @@ using Lru5B2QAllocator = CacheAllocator<Lru5B2QCacheTrait>;
 using S3FIFOAllocator = CacheAllocator<S3FIFOCacheTrait>;
 using S3FIFO5BAllocator = CacheAllocator<S3FIFO5BCacheTrait>;
 
+using S4FIFOAllocator = CacheAllocator<S4FIFOCacheTrait>;
+using S4FIFO5BAllocator = CacheAllocator<S4FIFO5BCacheTrait>;
 // CacheAllocator with Tiny LFU eviction policy
 // It has a window initially to gauage the frequency of accesses of newly
 // inserted items. And eventually it will onl admit items that are accessed
