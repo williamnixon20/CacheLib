@@ -15,11 +15,11 @@ void ensemble_score(double *input, double *result) {
     double probs_4[18];
 
     // Call each model
-    score_0(input, probs_0);
-    score_1(input, probs_1);
-    score_2(input, probs_2);
-    score_3(input, probs_3);
-    score_4(input, probs_4);
+    model_0_score(input, probs_0);
+    model_1_score(input, probs_1);
+    model_2_score(input, probs_2);
+    model_3_score(input, probs_3);
+    model_4_score(input, probs_4);
 
     // Average probabilities
     for (int c = 0; c < 18; c++) result[c] = 0.0;
