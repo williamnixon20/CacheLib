@@ -1,12 +1,12 @@
 // Ensemble aggregation wrapper for CacheLib S4FIFO
-// Include all model files (relative paths within s4fifo_model/)
-#include "model_0.c"
-#include "model_1.c"
-#include "model_2.c"
-#include "model_3.c"
-#include "model_4.c"
+// Include all model files (now header-only, .h)
+#include "model_0.h"
+#include "model_1.h"
+#include "model_2.h"
+#include "model_3.h"
+#include "model_4.h"
 
-void ensemble_score(double *input, double *result) {
+static void ensemble_score(double *input, double *result) {
     // Temporary arrays for each model's output
     double probs_0[18];
     double probs_1[18];
@@ -33,7 +33,7 @@ void ensemble_score(double *input, double *result) {
     for (int c = 0; c < 18; c++) result[c] /= 5.0;
 }
 
-int ensemble_predict(double *input) {
+static int ensemble_predict(double *input) {
     double probs[18];
     ensemble_score(input, probs);
     int best = 0;

@@ -74,22 +74,8 @@ add_library (cachelib_allocator
 
 # ============================================================================
 # S4FIFO LightGBM Ensemble Model
-# Compile the C model separately and link to cachelib_allocator
+# The model is now header-only (S4FIFOEnsemble.h), included directly where needed
 # ============================================================================
-set(S4FIFO_MODEL_SOURCES
-    s4fifo_model/S4FIFOEnsemble.c
-)
-
-# Create object library for C model (compiled with C compiler)
-add_library(s4fifo_model_obj OBJECT ${S4FIFO_MODEL_SOURCES})
-set_target_properties(s4fifo_model_obj PROPERTIES
-    LINKER_LANGUAGE C
-    C_STANDARD 99
-)
-target_compile_options(s4fifo_model_obj PRIVATE -O2)
-
-# Link the model object to cachelib_allocator
-target_sources(cachelib_allocator PRIVATE $<TARGET_OBJECTS:s4fifo_model_obj>)
 
 add_dependencies(cachelib_allocator thrift_generated_files)
 target_link_libraries(cachelib_allocator PUBLIC

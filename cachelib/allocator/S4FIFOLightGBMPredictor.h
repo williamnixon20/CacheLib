@@ -16,12 +16,13 @@
 #include <cmath>
 #include <cstddef>  // for size_t
 
-// Include the ensemble model (C code, compiled as extern "C")
+// Include the ensemble model (C code, now header-only)
 extern "C" {
-#include "s4fifo_model/S4FIFOEnsemble.c"
+#include "s4fifo_model/S4FIFOEnsemble.h"
 }
 
-namespace facebook::cachelib {
+// NOTE: This file is included from within namespace facebook::cachelib in MMS4FIFO.h
+// Do NOT add a namespace declaration here.
 
 // The 18 selected S3FIFO/S4FIFO configurations
 // Format: (s_param, m_param, t_param, g_param, k_param)
@@ -226,4 +227,4 @@ inline S4FIFOPredictedParams lightGBMPredict(const S4FIFOFeatureVector& features
     return params;
 }
 
-} // namespace facebook::cachelib
+// namespace facebook::cachelib is provided by the including file (MMS4FIFO.h)

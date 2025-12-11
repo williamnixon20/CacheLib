@@ -1,6 +1,6 @@
 #include "softmax.h"
 
-void model_4_score(double * input, double * output) {
+static void model_2_score(double * input, double * output) {
     double var0[18];
     double var1;
     if (input[66] > 3.9950000000000006) {
