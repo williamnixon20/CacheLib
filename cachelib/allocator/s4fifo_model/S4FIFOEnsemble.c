@@ -1,0 +1,44 @@
+// Ensemble aggregation wrapper for CacheLib S4FIFO
+// Include all model files (relative paths within s4fifo_model/)
+#include "model_0.c"
+#include "model_1.c"
+#include "model_2.c"
+#include "model_3.c"
+#include "model_4.c"
+
+void ensemble_score(double *input, double *result) {
+    // Temporary arrays for each model's output
+    double probs_0[18];
+    double probs_1[18];
+    double probs_2[18];
+    double probs_3[18];
+    double probs_4[18];
+
+    // Call each model
+    score_0(input, probs_0);
+    score_1(input, probs_1);
+    score_2(input, probs_2);
+    score_3(input, probs_3);
+    score_4(input, probs_4);
+
+    // Average probabilities
+    for (int c = 0; c < 18; c++) result[c] = 0.0;
+    for (int c = 0; c < 18; c++) {
+        result[c] += probs_0[c];
+        result[c] += probs_1[c];
+        result[c] += probs_2[c];
+        result[c] += probs_3[c];
+        result[c] += probs_4[c];
+    }
+    for (int c = 0; c < 18; c++) result[c] /= 5.0;
+}
+
+int ensemble_predict(double *input) {
+    double probs[18];
+    ensemble_score(input, probs);
+    int best = 0;
+    for (int c = 1; c < 18; c++) {
+        if (probs[c] > probs[best]) best = c;
+    }
+    return best;
+}

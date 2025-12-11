@@ -99,6 +99,9 @@ struct S4FIFOPredictedParams {
 using S4FIFOPredictionCallback =
     std::function<S4FIFOPredictedParams(const S4FIFOFeatureVector&)>;
 
+// Include the LightGBM predictor after type definitions
+#include "cachelib/allocator/S4FIFOLightGBMPredictor.h"
+
 // Bucketed hit position tracker for O(1) hit position recording
 struct S4FIFOHitPosTracker {
   int32_t numBuckets{kS4FIFODefaultBuckets};
@@ -697,7 +700,8 @@ class MMS4FIFO {
 
     // ========== Feature Collection State ==========
     S4FIFOFeatureCollector featureCollector_;
-    S4FIFOPredictionCallback predictionCallback_{defaultPrediction};
+    // Use LightGBM predictor by default when feature collection is enabled
+    S4FIFOPredictionCallback predictionCallback_{lightGBMPredict};
 
     // Warmup tracking
     std::atomic<bool> isWarmedUp_{false};
