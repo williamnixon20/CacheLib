@@ -489,7 +489,10 @@ inline typename S4FIFOAllocator::MMConfig makeMMConfig(
       config.ghostSizePercent,
       config.moveToMainThreshold,
       config.smallSkipRatio,
-      config.ghostToMainThreshold);
+      config.ghostToMainThreshold, 
+      config.enableFeatureCollection,
+      config.featureUpdateIntervalSecs,
+      config.enablePeriodicUpdates);
 }
 
 
@@ -554,6 +557,12 @@ Cache<Allocator>::Cache(const CacheConfig& config,
   allocatorConfig_.enablePoolRebalancing(
       config_.getRebalanceStrategy(),
       std::chrono::seconds(config_.poolRebalanceIntervalSec));
+  printf("Function enable tailhits is %s", config_.enableTailHitsTracking ? "true" : "false");
+
+  if (config.enableTailHitsTracking) {
+    printf("Enabling tail hits tracking\n");
+    allocatorConfig_.enableTailHitsTracking();
+  }
 
   if (config_.moveOnSlabRelease && movingSync != nullptr) {
     allocatorConfig_.enableMovingOnSlabRelease(

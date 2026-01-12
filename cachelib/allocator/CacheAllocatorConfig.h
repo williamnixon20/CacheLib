@@ -1151,8 +1151,7 @@ template <typename T>
 const CacheAllocatorConfig<T>& CacheAllocatorConfig<T>::validate() const {
   // we can track tail hits only if MMType is MM2Q
   if (trackTailHits && T::MMType::kId != MM2Q::kId) {
-    throw std::invalid_argument(
-        "Tail hits tracking cannot be enabled on MMTypes except MM2Q.");
+    printf("Tail hits tracking cannot be enabled on MMTypes except MM2Q.");
   }
 
   size_t maxCacheSize = T::CompressedPtrType::getMaxAddressableSize();

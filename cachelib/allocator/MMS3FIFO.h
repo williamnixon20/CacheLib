@@ -137,6 +137,13 @@ class MMS3FIFO {
     Container(Config c, PtrCompressor compressor)
         : lru_(LruType::NumTypes, std::move(compressor)),
           config_(std::move(c)) {
+      printf(
+          "Configs are: updateOnWrite=%d, updateOnRead=%d, "
+          "tinySizePercent=%zu, ghostSizePercent=%zu\n",
+          config_.updateOnWrite,
+          config_.updateOnRead,
+          config_.tinySizePercent,
+          config_.ghostSizePercent);
           }
     Container(serialization::MMS3FIFOObject object, PtrCompressor compressor);
 
@@ -452,6 +459,11 @@ template <typename T, MMS3FIFO::Hook<T> T::* HookPtr>
 MMS3FIFO::Container<T, HookPtr>::Container(serialization::MMS3FIFOObject object,
                                            PtrCompressor compressor)
     : lru_(*object.lrus(), std::move(compressor)), config_(*object.config()) {
+      printf("Configs are: updateOnWrite=%d, updateOnRead=%d, tinySizePercent=%zu, ghostSizePercent=%zu\n",
+             config_.updateOnWrite,
+             config_.updateOnRead,
+             config_.tinySizePercent,
+             config_.ghostSizePercent);
 }
 
 template <typename T, MMS3FIFO::Hook<T> T::* HookPtr>
@@ -585,9 +597,9 @@ void MMS3FIFO::Container<T, HookPtr>::rebalanceForEviction() {
   while (true) {
     bool tryTiny = tinyLru.size() >= expectedTinySize;
     rebalanceCount++;
-    if (rebalanceCount > rebalanceLimit) {
-      break;
-    }
+    // if (rebalanceCount > rebalanceLimit) {
+    //   break;
+    // }
 
     if (tryTiny) {
       // Tail of T

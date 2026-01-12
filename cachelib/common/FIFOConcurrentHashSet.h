@@ -54,6 +54,10 @@ class FIFOConcurrentHashSetBase {
     queueSize_.store(limitTS, std::memory_order_relaxed);
   }
 
+  inline size_t size() const {
+    return queueSize_.load(std::memory_order_relaxed);
+  }
+
  private:
   folly::ConcurrentHashMap<Key, TS> ghost_;
 
@@ -63,8 +67,102 @@ class FIFOConcurrentHashSetBase {
   std::atomic<TS> queueSize_;
 };
 
+
+
+template <typename KeyT = uint32_t>
+class FIFOConcurrentHashSetGhostBase {
+ public:
+  using Key = KeyT;
+  using TS = uint64_t;
+
+  struct Entry {
+    TS logicalTs; // FIFO order / logical counter
+    TS legitTs;   // real / external timestamp
+  };
+
+  explicit FIFOConcurrentHashSetGhostBase(size_t capacity)
+      : ghost_(capacity), seq_(0), queueSize_(0) {}
+
+  FIFOConcurrentHashSetGhostBase() : seq_(0), queueSize_(0) {}
+
+  /* Insert with legit TS */
+  inline void insert(Key k, TS legitTs) {
+    TS logicalTs = seq_.fetch_add(1, std::memory_order_relaxed);
+
+    ghost_.insert_or_assign(k, Entry{logicalTs, legitTs});
+
+    if (UNLIKELY(logicalTs == std::numeric_limits<TS>::max())) {
+      ghost_.clear();
+    }
+  }
+
+  /* Optional: insert without legit TS */
+  inline void insert(Key k) {
+    insert(k, /*legitTs=*/0);
+  }
+
+  /* Check existence using logical TS */
+  inline bool contains(Key k) {
+    auto it = ghost_.find(k);
+    if (it == ghost_.end()) {
+      return false;
+    }
+
+    TS currDiff =
+        seq_.load(std::memory_order_relaxed) - it->second.logicalTs;
+
+    bool isValid =
+        currDiff <= queueSize_.load(std::memory_order_relaxed);
+
+    if (!isValid) {
+      ghost_.erase(k);
+    }
+
+    return isValid;
+  }
+
+  /* Check + return legit TS */
+  inline std::pair<bool, TS> containsWithTS(Key k) {
+    auto it = ghost_.find(k);
+    if (it == ghost_.end()) {
+      return {false, 0};
+    }
+
+    TS currDiff =
+        seq_.load(std::memory_order_relaxed) - it->second.logicalTs;
+
+    bool isValid =
+        currDiff <= queueSize_.load(std::memory_order_relaxed);
+
+    if (!isValid) {
+      ghost_.erase(k);
+      return {false, 0};
+    }
+
+    return {true, it->second.legitTs};
+  }
+
+  inline void resize(TS limitTS) {
+    queueSize_.store(limitTS, std::memory_order_relaxed);
+  }
+
+  inline size_t size() const {
+    return queueSize_.load(std::memory_order_relaxed);
+  }
+
+ private:
+  folly::ConcurrentHashMap<Key, Entry> ghost_;
+  std::atomic<TS> seq_;
+  std::atomic<TS> queueSize_;
+};
+
 } // namespace detail
 using FIFOConcurrentHashSet32 = detail::FIFOConcurrentHashSetBase<uint32_t>;
 using FIFOConcurrentHashSet64 = detail::FIFOConcurrentHashSetBase<uint64_t>;
+
+using FIFOConcurrentHashSetPair32 =
+    detail::FIFOConcurrentHashSetGhostBase<uint32_t>;
+using FIFOConcurrentHashSetPair64 =
+    detail::FIFOConcurrentHashSetGhostBase<uint64_t>;
   
 } // namespace facebook::cachelib::util

@@ -18,12 +18,15 @@
 
 #include <atomic>
 #include <cmath>
+#include <fstream>
 #include <functional>
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wconversion"
 #include <folly/Format.h>
 #include <folly/Math.h>
+#include <folly/dynamic.h>
+#include <folly/json.h>
 #include <folly/synchronization/DistributedMutex.h>
 
 #pragma GCC diagnostic pop
@@ -116,6 +119,8 @@ struct S4FIFOHitPosTracker {
   int64_t totalRemovals{0};
   int64_t currentBucket{0};
 
+  bool haveWarmedUp = false;
+
   void init(int64_t expectedMaxPos, int32_t buckets, bool trackRemoval) {
     memset(this, 0, sizeof(S4FIFOHitPosTracker));
     if (buckets <= 0)
@@ -123,13 +128,37 @@ struct S4FIFOHitPosTracker {
     if (buckets > kS4FIFOMaxBuckets)
       buckets = kS4FIFOMaxBuckets;
     numBuckets = buckets;
-    bucketSize = (expectedMaxPos + buckets - 1) / buckets;
-    if (bucketSize < 1)
+    auto newBucketSize = (expectedMaxPos + buckets - 1) / buckets;
+    if (newBucketSize > 1) {
+      bucketSize = newBucketSize;
+    } else {
       bucketSize = 1;
+    }
     trackMiddleRemoval = trackRemoval;
+
+ // S4FIFOHitPosTracker initialized: expectedMaxPos=8 buckets=20 bucketSize=0 trackRemoval=0
+ // S4FIFOHitPosTracker initialized: expectedMaxPos=75 buckets=20 bucketSize=4 trackRemoval=0
+ // S4FIFOHitPosTracker initialized: expectedMaxPos=74 buckets=20 bucketSize=4 trackRemoval=1
+    printf("S4FIFOHitPosTracker initialized: expectedMaxPos=%ld buckets=%d bucketSize=%ld trackRemoval=%d\n",
+           expectedMaxPos, numBuckets, bucketSize, trackMiddleRemoval);
   }
 
+  void setWarmedUp() {
+    printf("S4FIFOHitPosTracker warmed up\n");
+    haveWarmedUp = true;
+  }
+
+  // facebook::cachelib::MMS4FIFO::Container<facebook::cachelib::CacheItem<facebook::cachelib::S4FIFOCacheTrait>, &facebook::cachelib::CacheItem<facebook::cachelib::S4FIFOCacheTrait>::mmHook_>::remove(facebook::cachelib::MMS4FIFO::Container<facebook::cachelib::CacheItem<facebook::cachelib::S4FIFOCacheTrait>, &facebook::cachelib::CacheItem<facebook::cachelib::S4FIFOCacheTrait>::mmHook_>::LockedIterator&)
+  // Insertions done
   int64_t recordInsert(int64_t insertCounter) {
+    if (!haveWarmedUp)
+      return 0;
+
+    if (bucketSize == 0) {
+      printf("Anomaly: Bucket size is zero in recordInsert\n");
+      fflush(stdout);
+      return 0;
+    }
     int64_t newBucket = (insertCounter / bucketSize) % numBuckets;
     if (trackMiddleRemoval && newBucket != currentBucket) {
       int64_t b = (currentBucket + 1) % numBuckets;
@@ -143,14 +172,20 @@ struct S4FIFOHitPosTracker {
     return newBucket;
   }
 
+  // Maybe inaccurate for now
   void recordRemoval() {
+    if (!haveWarmedUp)
+      return;
     if (!trackMiddleRemoval)
       return;
     removalCounters[currentBucket]++;
     totalRemovals++;
   }
 
+  // Private dont need to use.
   int64_t estimateHoles(int64_t insertBucket) const {
+    if (!haveWarmedUp)
+      return 0;
     if (!trackMiddleRemoval)
       return 0;
     int64_t holes = 0;
@@ -163,15 +198,23 @@ struct S4FIFOHitPosTracker {
     return holes;
   }
 
+  // Hits done
+  // Need insert bucket for ghost
   void recordHit(int64_t insertTime,
                  int64_t insertBucket,
                  int64_t currentCounter) {
+    if (!haveWarmedUp)
+      return;
+    if (bucketSize == 0) {
+      printf("Anomaly: Bucket size is zero in recordHit\n");
+      fflush(stdout);
+      return;
+    }
     int64_t rawPosition = currentCounter - insertTime;
     int64_t holes = estimateHoles(insertBucket);
     int64_t adjustedPosition = rawPosition - holes;
     if (adjustedPosition < 0)
       adjustedPosition = 0;
-
     int64_t posBucket = adjustedPosition / bucketSize;
     if (posBucket >= numBuckets) {
       posBucket = numBuckets - 1;
@@ -190,6 +233,20 @@ struct S4FIFOHitPosTracker {
       out[i] = static_cast<double>(hitCounts[i]) * invTotal;
     }
   }
+
+  // getHistogramString()
+  std::string getHistogramString() const {
+    std::string result = "[";
+    for (int i = 0; i < numBuckets; i++) {
+      if (i > 0) {
+        result += ", ";
+      }
+      result += folly::to<std::string>(hitCounts[i]);
+    }
+    result += "]";
+    return result;
+  }
+  
 
   void reset() {
     memset(hitCounts, 0, sizeof(hitCounts));
@@ -223,6 +280,10 @@ struct S4FIFOFeatureCollector {
   int64_t totalMisses{0};
   int64_t oneHitCount{0};
 
+  int64_t capacity{0};
+  int64_t sizeSmall{0};
+  int64_t sizeMain{0};
+
   void init(int64_t capacity,
             int64_t smallSize,
             int64_t mainSize,
@@ -237,6 +298,15 @@ struct S4FIFOFeatureCollector {
     smallTracker.init(smallSize, numBuckets, false);
     mainTracker.init(mainSize, numBuckets, false);
     ghostTracker.init(ghostSize, numBuckets, true);
+    capacity = capacity;
+    sizeSmall = smallSize;
+    sizeMain = mainSize;
+  }
+
+  void setWarmedUp() {
+    smallTracker.setWarmedUp();
+    mainTracker.setWarmedUp();
+    ghostTracker.setWarmedUp();
   }
 
   void reset() {
@@ -284,6 +354,46 @@ struct S4FIFOFeatureCollector {
     smallTracker.getHistogram(fv.histSmall);
     mainTracker.getHistogram(fv.histMain);
     ghostTracker.getHistogram(fv.histGhost);
+  }
+
+  std::string histStringify(const double* hist) const {
+    std::string result = "[";
+    for (int i = 0; i < numBuckets; i++) {
+      if (i > 0) {
+        result += ", ";
+      }
+      result += folly::to<std::string>(hist[i]);
+    }
+    result += "]";
+    return result;
+  }
+
+  // To string method
+  std::string toString() const {
+    S4FIFOFeatureVector fv;
+    getFeatures(fv);
+    return folly::sformat(
+        "S4FIFO Feature Vector:\n"
+        "capacity: {}\n"
+        "  sizeSmall: {}\n"
+        "  sizeMain: {}\n"
+        "  numBuckets: {}\n"
+        "  logCacheCapacity: {:.4f}\n"
+        "  totalRequests: {}\n"
+        "  totalHits: {}\n"
+        "  totalMisses: {}\n"
+        "  hitRatioSmall: {:.4f}\n"
+        "  hitRatioMain: {:.4f}\n"
+        "  hitRatioGhost: {:.4f}\n"
+        "  uniqueRatio: {:.4f}\n"
+        "  oneHitRatio: {:.4f}\n"
+        " histSmall: {}\n"
+        " histMain: {}\n"
+        " histGhost: {}\n",
+        capacity, sizeSmall, sizeMain,
+        fv.numBuckets, fv.logCacheCapacity, fv.totalRequests, fv.totalHits,
+        fv.totalMisses, fv.hitRatioSmall, fv.hitRatioMain, fv.hitRatioGhost,
+        fv.uniqueRatio, fv.oneHitRatio, histStringify(fv.histSmall), histStringify(fv.histMain), histStringify(fv.histGhost));
   }
 };
 
@@ -348,15 +458,38 @@ class MMS4FIFO {
           smallSkipRatio(smallSkipRatio),
           ghostToMainThreshold(ghostToMainThreshold) {}
 
+    Config(bool updateOnW,
+           bool updateOnR,
+           size_t tinySizePercent,
+           size_t ghostSizePercent,
+           int moveToMainThreshold,
+           double smallSkipRatio,
+           int ghostToMainThreshold,
+           bool enableFeatureCollection,
+           uint64_t featureUpdateIntervalSecs,
+           bool enablePeriodicUpdates)
+        : updateOnWrite(updateOnW),
+          updateOnRead(updateOnR),
+          tinySizePercent(tinySizePercent),
+          ghostSizePercent(ghostSizePercent),
+          moveToMainThreshold(moveToMainThreshold),
+          smallSkipRatio(smallSkipRatio),
+          ghostToMainThreshold(ghostToMainThreshold),
+          enableFeatureCollection(enableFeatureCollection),
+          featureUpdateIntervalSecs(featureUpdateIntervalSecs),
+          enablePeriodicUpdates(enablePeriodicUpdates) {}
+
+    void addExtraConfig(size_t tSize) { 
+      printf(
+        "Setting tailSize to %zu\n", tSize);
+      tailSize = tSize; 
+    }
     Config() = default;
     Config(const Config& rhs) = default;
     Config(Config&& rhs) = default;
 
     Config& operator=(const Config& rhs) = default;
     Config& operator=(Config&& rhs) = default;
-
-    template <typename... Args>
-    void addExtraConfig(Args...) {}
 
     // whether the cache needs to be updated on writes for recordAccess.
     bool updateOnWrite{false};
@@ -394,10 +527,12 @@ class MMS4FIFO {
 
     // If true, continuously update parameters periodically
     // If false, only update once after first interval
-    bool enablePeriodicUpdates{true};
+    bool enablePeriodicUpdates{false};
 
     // Number of histogram buckets for feature collection
     int32_t featureNumBuckets{kS4FIFODefaultBuckets};
+    // Hack to track allocation class
+    size_t tailSize{0};
   };
 
   // The container object which can be used to keep track of objects of type T
@@ -414,10 +549,19 @@ class MMS4FIFO {
 
    public:
     Container() {};
+    // This one is used
     Container(Config c, PtrCompressor compressor)
         : lru_(LruType::NumTypes, std::move(compressor)),
           config_(std::move(c)) {
       initFeatureCollection();
+      printf(
+          "S4 FIFO Configs are: updateOnWrite=%d, updateOnRead=%d, "
+          "tinySizePercent=%zu, ghostSizePercent=%zu, skipRatio=%f, "
+          "moveToMainThreshold=%d, ghostToMainThreshold=%d, enableFeatureCollection=%d, featureUpdateIntervalSecs=%lu, enablePeriodicUpdates=%d\n",
+          config_.updateOnWrite, config_.updateOnRead, config_.tinySizePercent,
+          config_.ghostSizePercent, config_.smallSkipRatio,
+          config_.moveToMainThreshold, config_.ghostToMainThreshold,
+          config_.enableFeatureCollection, config_.featureUpdateIntervalSecs, config_.enablePeriodicUpdates);
     }
     Container(serialization::MMS4FIFOObject object, PtrCompressor compressor);
 
@@ -631,38 +775,66 @@ class MMS4FIFO {
 
     void removeLocked(T& node) noexcept;
 
-    static bool isTiny(const T& node) noexcept {
-      return node.template isFlagSet<RefFlags::kMMFlag0>();
-    }
+    // =======================
+    // 2-bit frequency counter
+    // =======================
 
+    // value = (kMMFlag2 << 1) | kMMFlag1
     static int getFreq(const T& node) noexcept {
-      return node.template isFlagSet<RefFlags::kMMFlag1>() ? 1 : 0;
+      return (node.template isFlagSet<RefFlags::kMMFlag1>() ? 1 : 0) |
+            (node.template isFlagSet<RefFlags::kMMFlag2>() ? 2 : 0);
     }
 
+    // set exact value in [0, 3]
+    static void setFreq(T& node, int v) noexcept {
+      // clamp
+      if (v < 0) v = 0;
+      if (v > 3) v = 3;
+
+      if (v & 0x1)
+        node.template setFlag<RefFlags::kMMFlag1>();
+      else
+        node.template unSetFlag<RefFlags::kMMFlag1>();
+
+      if (v & 0x2)
+        node.template setFlag<RefFlags::kMMFlag2>();
+      else
+        node.template unSetFlag<RefFlags::kMMFlag2>();
+    }
+
+    // saturating increment: 0 → 3
     static void incrementFreq(T& node) noexcept {
-      node.template setFlag<RefFlags::kMMFlag1>();
+      int v = getFreq(node);
+      if (v < 3) {
+        setFreq(node, v + 1);
+      }
     }
 
+    // saturating decrement: 3 → 0
+    static void decrementFreq(T& node) noexcept {
+      int v = getFreq(node);
+      if (v > 0) {
+        setFreq(node, v - 1);
+      }
+    }
+
+    // reset to 0
     static void resetFreq(T& node) noexcept {
       node.template unSetFlag<RefFlags::kMMFlag1>();
+      node.template unSetFlag<RefFlags::kMMFlag2>();
     }
 
-    static bool isAccessed(const T& node) noexcept {
-      return node.template isFlagSet<RefFlags::kMMFlag1>();
-    }
 
     static void markTiny(T& node) noexcept {
       node.template setFlag<RefFlags::kMMFlag0>();
     }
+
     static void unmarkTiny(T& node) noexcept {
       node.template unSetFlag<RefFlags::kMMFlag0>();
     }
 
-    static void markAccessed(T& node) noexcept {
-      node.template setFlag<RefFlags::kMMFlag1>();
-    }
-    static void unmarkAccessed(T& node) noexcept {
-      node.template unSetFlag<RefFlags::kMMFlag1>();
+    static bool isTiny(const T& node) noexcept {
+      return node.template isFlagSet<RefFlags::kMMFlag0>();
     }
 
     // ========== Feature Collection Private Methods ==========
@@ -694,14 +866,17 @@ class MMS4FIFO {
 
     size_t capacity_{0};
     LruList lru_;
-    facebook::cachelib::util::FIFOConcurrentHashSet32 ghostQueue_;
+    util::FIFOConcurrentHashSetPair32 ghostQueue_;
     std::atomic<int64_t> sCounter_{0};
+    std::atomic<int64_t> mCounter_{0};
+    std::atomic<int64_t> gCounter_{0};
     Config config_{};
 
     // ========== Feature Collection State ==========
     S4FIFOFeatureCollector featureCollector_;
     // Use LightGBM predictor by default when feature collection is enabled
-    S4FIFOPredictionCallback predictionCallback_{lightGBMPredict};
+    S4FIFOPredictionCallback predictionCallback_{
+        facebook::cachelib::lightGBMPredict};
 
     // Warmup tracking
     std::atomic<bool> isWarmedUp_{false};
@@ -717,26 +892,34 @@ class MMS4FIFO {
 };
 
 /* Container Interface Implementation */
+// This one unused
 template <typename T, MMS4FIFO::Hook<T> T::* HookPtr>
 MMS4FIFO::Container<T, HookPtr>::Container(serialization::MMS4FIFOObject object,
                                            PtrCompressor compressor)
     : lru_(*object.lrus(), std::move(compressor)), config_(*object.config()) {
   initFeatureCollection();
+  printf("S4 FIFO Configs are: updateOnWrite=%d, updateOnRead=%d, tinySizePercent=%zu, ghostSizePercent=%zu, skipRatio=%f, moveToMainThreshold=%d, ghostToMainThreshold=%d\n, enableFeatureCollection=%d, featureUpdateIntervalSecs=%lu, enablePeriodicUpdates=%d\n",
+         config_.updateOnWrite, config_.updateOnRead,
+         config_.tinySizePercent, config_.ghostSizePercent, config_.smallSkipRatio, config_.moveToMainThreshold, config_.ghostToMainThreshold,
+         config_.enableFeatureCollection, config_.featureUpdateIntervalSecs, config_.enablePeriodicUpdates);
 }
 
 template <typename T, MMS4FIFO::Hook<T> T::* HookPtr>
 void MMS4FIFO::Container<T, HookPtr>::maybeResizeGhostLocked() noexcept {
   size_t lruSize = lru_.size();
+  size_t expectedGhostSize =
+      static_cast<size_t>(lruSize * config_.ghostSizePercent / 100);
 
   const bool shouldGrow = lruSize >= 2 * capacity_;
   const bool shouldShrink = lruSize <= capacity_ / 2;
+  // If prediction changes ghost size drastically, we also resize
+  const bool ghostChangedDrastic = 
+      expectedGhostSize >= 1.2 * ghostQueue_.size() ||
+      expectedGhostSize <= ghostQueue_.size() * 0.8;
 
-  if (!shouldGrow && !shouldShrink) {
+  if (!shouldGrow && !shouldShrink && !ghostChangedDrastic) {
     return;
   }
-
-  size_t expectedGhostSize =
-      static_cast<size_t>(lruSize * config_.ghostSizePercent / 100);
   ghostQueue_.resize(expectedGhostSize);
   capacity_ = lruSize;
 }
@@ -748,26 +931,7 @@ void MMS4FIFO::Container<T, HookPtr>::maybeUpdateFeatures() noexcept {
   }
 
   const auto currTime = static_cast<uint64_t>(util::getCurrentTimeSec());
-
-  // Check warmup: cache is warmed up when it's full
   if (!isWarmedUp_.load(std::memory_order_acquire)) {
-    // Check if we're warmed up (simplified check - could also use occupied
-    // bytes)
-    if (lru_.size() > 0) {
-      isWarmedUp_.store(true, std::memory_order_release);
-      warmupTime_.store(currTime, std::memory_order_release);
-      lastFeatureUpdateTime_.store(currTime, std::memory_order_release);
-
-      // Initialize feature collector with actual sizes
-      size_t tinySize = lru_.getList(LruType::Tiny).size();
-      size_t mainSize = lru_.getList(LruType::Main).size();
-      size_t totalSize = tinySize + mainSize;
-      featureCollector_.init(totalSize,
-                             tinySize,
-                             mainSize,
-                             totalSize * config_.ghostSizePercent / 100,
-                             config_.featureNumBuckets);
-    }
     return;
   }
 
@@ -786,10 +950,10 @@ void MMS4FIFO::Container<T, HookPtr>::maybeUpdateFeatures() noexcept {
   // Time to update! Lock feature mutex
   featureMutex_->lock_combine([this, currTime]() {
     // Double-check time under lock
-    uint64_t lastUpdate =
-        lastFeatureUpdateTime_.load(std::memory_order_relaxed);
     uint64_t now = static_cast<uint64_t>(util::getCurrentTimeSec());
 
+    uint64_t lastUpdate =
+        lastFeatureUpdateTime_.load(std::memory_order_acquire);
     if (now - lastUpdate < config_.featureUpdateIntervalSecs) {
       return;
     }
@@ -797,9 +961,79 @@ void MMS4FIFO::Container<T, HookPtr>::maybeUpdateFeatures() noexcept {
     // Get current features
     S4FIFOFeatureVector features;
     featureCollector_.getFeatures(features);
+    if (features.totalHits == 0) {
+      // Skip predicting for now, no hits collected.
+      // Set last update time and return.
+      printf(
+          "[%lu] S4FIFO Feature Update at time %lu: "
+          "No hits collected, skipping prediction.\n",
+          config_.tailSize, now);
+      lastFeatureUpdateTime_.store(now, std::memory_order_release);
+      return;
+    }
 
     // Call prediction function
     S4FIFOPredictedParams predictedParams = predictionCallback_(features);
+    printf("[%lu] S4FIFO Feature Vector at time %lu:\n%s\n", config_.tailSize,
+           now, featureCollector_.toString().c_str());
+    printf(
+        "S4FIFO Feature Update at time %lu: "
+        "Predicted Params - tinySizePercent=%zu, ghostSizePercent=%zu, "
+        "moveToMainThreshold=%d, smallSkipRatio=%.4f, "
+        "ghostToMainThreshold=%d\n",
+        now,
+        predictedParams.tinySizePercent,
+        predictedParams.ghostSizePercent,
+        predictedParams.moveToMainThreshold,
+        predictedParams.smallSkipRatio,
+        predictedParams.ghostToMainThreshold);
+
+    // Dump feature vector and prediction into a file, json format
+    {
+      
+      folly::dynamic record = folly::dynamic::object;
+      record["time"] = static_cast<int64_t>(now);
+      record["tailSize"] = static_cast<int64_t>(config_.tailSize);
+      record["featureUpdateInterval"] = 
+          static_cast<int64_t>(config_.featureUpdateIntervalSecs);
+      folly::dynamic featureJson = folly::dynamic::object;
+      featureJson["numBuckets"] = features.numBuckets;
+      featureJson["logCacheCapacity"] = features.logCacheCapacity;
+      featureJson["hitRatioSmall"] = features.hitRatioSmall;
+      featureJson["hitRatioMain"] = features.hitRatioMain;
+      featureJson["hitRatioGhost"] = features.hitRatioGhost;
+      featureJson["uniqueRatio"] = features.uniqueRatio;
+      featureJson["oneHitRatio"] = features.oneHitRatio;
+      featureJson["totalRequests"] = features.totalRequests;
+      featureJson["totalHits"] = features.totalHits;
+      featureJson["totalMisses"] = features.totalMisses;
+      featureJson["histSmall"] = featureCollector_.histStringify(features.histSmall);
+      featureJson["histMain"] = featureCollector_.histStringify(features.histMain);
+      featureJson["histGhost"] = featureCollector_.histStringify(features.histGhost);
+      record["features"] = featureJson;
+
+      folly::dynamic predictedJson = folly::dynamic::object;
+      predictedJson["tinySizePercent"] =
+          static_cast<int64_t>(predictedParams.tinySizePercent);
+      predictedJson["ghostSizePercent"] =
+          static_cast<int64_t>(predictedParams.ghostSizePercent);
+      predictedJson["moveToMainThreshold"] =
+          static_cast<int64_t>(predictedParams.moveToMainThreshold);
+      predictedJson["smallSkipRatio"] = predictedParams.smallSkipRatio;
+      predictedJson["ghostToMainThreshold"] =
+          static_cast<int64_t>(predictedParams.ghostToMainThreshold);
+      record["predictedParams"] = predictedJson;
+
+      std::string recordStr = folly::toJson(record);
+      printf("S4FIFO Feature Record: %s\n", recordStr.c_str());
+      // Log to file, create a file named "s4fifo_feature_log_<tailSize>.log"
+      std::string filename =
+          folly::sformat("s4fifo_feature_log_{}.log", config_.tailSize);
+      std::ofstream outfile;
+      outfile.open(filename, std::ios_base::app);
+      outfile << recordStr << std::endl;
+      outfile.close();
+    }
 
     // Apply predicted parameters
     applyPredictedParams(predictedParams);
@@ -869,16 +1103,15 @@ bool MMS4FIFO::Container<T, HookPtr>::recordAccess(T& node,
       (mode == AccessMode::kRead && !config_.updateOnRead)) {
     return false;
   }
-  const auto currTime = static_cast<Time>(util::getCurrentTimeSec());
-
   // Check for periodical feature update
   maybeUpdateFeatures();
 
   if (node.isInMMContainer()) {
     // S4FIFO: Check skip ratio for small queue
-    if (isTiny(node) && config_.smallSkipRatio > 0) {
-      int64_t currentCounter = sCounter_.load(std::memory_order_relaxed);
+    if (UNLIKELY(isTiny(node) && config_.smallSkipRatio > 0)) {
       Time insertTime = getUpdateTime(node);
+      Time currentCounter = sCounter_.load(std::memory_order_relaxed);
+
       int64_t age = currentCounter - static_cast<int64_t>(insertTime);
       int64_t skipThreshold = static_cast<int64_t>(
           config_.smallSkipRatio * lru_.getList(LruType::Tiny).size());
@@ -889,7 +1122,6 @@ bool MMS4FIFO::Container<T, HookPtr>::recordAccess(T& node,
     } else {
       incrementFreq(node);
     }
-    setUpdateTime(node, currTime);
 
     // Feature collection: record hit
     if (config_.enableFeatureCollection &&
@@ -897,8 +1129,11 @@ bool MMS4FIFO::Container<T, HookPtr>::recordAccess(T& node,
 
         if (isTiny(node)) {
           featureCollector_.totalHitsSmall++;
+          featureCollector_.smallTracker.recordHit( getUpdateTime(node), 0, sCounter_.load(std::memory_order_relaxed));
         } else {
           featureCollector_.totalHitsMain++;
+          featureCollector_.mainTracker.recordHit( getUpdateTime(node), 0,
+                                 mCounter_.load(std::memory_order_relaxed));
         }
         featureCollector_.totalRequests++;
     }
@@ -943,10 +1178,11 @@ MMS4FIFO::Container<T, HookPtr>::getEvictionAgeStatLocked(
 
 template <typename T, MMS4FIFO::Hook<T> T::* HookPtr>
 bool MMS4FIFO::Container<T, HookPtr>::add(T& node) noexcept {
-  const auto currTime = static_cast<Time>(util::getCurrentTimeSec());
-
   const auto nodeHash = hashNode(node);
-  const auto ghostContains = ghostQueue_.contains(nodeHash);
+  //   inline std::pair<bool, TS> 
+  const auto ghostContainsWithTS = ghostQueue_.containsWithTS(nodeHash);
+  const auto ghostContains = ghostContainsWithTS.first;
+  const auto ghostTS = ghostContainsWithTS.second;
 
   // Feature collection: record ghost hit
   if (config_.enableFeatureCollection && ghostContains &&
@@ -954,25 +1190,49 @@ bool MMS4FIFO::Container<T, HookPtr>::add(T& node) noexcept {
     featureCollector_.totalHitsGhost++;
   }
 
-  return lruMutex_->lock_combine([this, &node, currTime, ghostContains]() {
+  return lruMutex_->lock_combine([this, &node, ghostContains, ghostTS]() {
     if (node.isInMMContainer()) {
       return false;
     }
 
+    const auto smallCounter = sCounter_.load(std::memory_order_relaxed);
+    const auto mainCounter = mCounter_.load(std::memory_order_relaxed);
+
     if (ghostContains) {
+      featureCollector_.ghostTracker.recordHit(
+          ghostTS, 0, gCounter_.load(std::memory_order_relaxed));
+      gCounter_.fetch_add(1, std::memory_order_relaxed);
+      featureCollector_.ghostTracker.recordRemoval();
+
+      // Workaround: if we have ghosttomainthreshold != 0, we put into small queue.
+      // Get around the fact ghost hits cannot be tracked in ghost currently.
       if (config_.ghostToMainThreshold <= 0) {
         auto& mainLru = lru_.getList(LruType::Main);
         mainLru.linkAtHead(node);
+
+        unmarkTiny(node);
+        setUpdateTime(node, mainCounter);
+        featureCollector_.mainTracker.recordInsert(
+            mainCounter);
+        mCounter_.fetch_add(1, std::memory_order_relaxed);
       } else {
         auto& tinyLru = lru_.getList(LruType::Tiny);
         tinyLru.linkAtHead(node);
+
         markTiny(node);
+        setUpdateTime(node, smallCounter);
+        featureCollector_.smallTracker.recordInsert(
+            smallCounter);
         sCounter_.fetch_add(1, std::memory_order_relaxed);
       }
     } else {
       auto& tinyLru = lru_.getList(LruType::Tiny);
       tinyLru.linkAtHead(node);
+
       markTiny(node);
+      setUpdateTime(node, smallCounter);
+      featureCollector_.smallTracker.recordInsert(
+          smallCounter);
       sCounter_.fetch_add(1, std::memory_order_relaxed);
 
       // Feature collection: record unique object
@@ -983,7 +1243,6 @@ bool MMS4FIFO::Container<T, HookPtr>::add(T& node) noexcept {
     }
 
     node.markInMMContainer();
-    setUpdateTime(node, currTime);
     resetFreq(node);
 
     // Feature collection: record miss (new insertion = cache miss)
@@ -1021,6 +1280,12 @@ void MMS4FIFO::Container<T, HookPtr>::rebalanceForEviction() {
         mainLru.linkAtHead(node);
         unmarkTiny(node);
         resetFreq(node);
+        // We insert into main, so update the main counters.
+        auto mCounterValue = mCounter_.load(std::memory_order_relaxed);
+        setUpdateTime(node,   mCounterValue);
+        featureCollector_.mainTracker.recordInsert(
+            mCounterValue);
+        mCounter_.fetch_add(1, std::memory_order_relaxed);
         continue;
       } else {
         break;
@@ -1034,7 +1299,14 @@ void MMS4FIFO::Container<T, HookPtr>::rebalanceForEviction() {
       T& node = *nodePtr;
       if (getFreq(node) >= 1) {
         mainLru.moveToHead(node);
-        resetFreq(node);
+        decrementFreq(node);
+        // resetFreq(node);
+        // Update the reinsertion time, main counters, and track insert
+        auto mCounterValue = mCounter_.load(std::memory_order_relaxed);
+        setUpdateTime(node,   mCounterValue);
+        featureCollector_.mainTracker.recordInsert(
+            mCounterValue);
+        mCounter_.fetch_add(1, std::memory_order_relaxed);
         continue;
       } else {
         break;
@@ -1095,8 +1367,15 @@ bool MMS4FIFO::Container<T, HookPtr>::remove(T& node) noexcept {
     removeLocked(node);
     return true;
   });
+
   if (result && isTiny_) {
-    ghostQueue_.insert(hashNode(node));
+    auto gCounterValue = gCounter_.load(std::memory_order_relaxed);
+    // Updating ghost with counter does not work, deleted items do not retain update time
+    // setUpdateTime(node, gCounterValue);
+    ghostQueue_.insert(hashNode(node), gCounterValue);
+    featureCollector_.ghostTracker.recordInsert(
+        gCounterValue);
+    gCounter_.fetch_add(1, std::memory_order_relaxed);
   }
   return result;
 }
@@ -1130,7 +1409,49 @@ void MMS4FIFO::Container<T, HookPtr>::remove(LockedIterator& it) noexcept {
     if (it.l_.owns_lock()) {
       it.l_.unlock();
     }
-    ghostQueue_.insert(hashNode(node));
+    // Keep the ghostcounter in the ghostqueue
+    auto gCounterValue = gCounter_.load(std::memory_order_relaxed);
+    ghostQueue_.insert(hashNode(node), gCounterValue);
+    featureCollector_.ghostTracker.recordInsert(
+        gCounterValue);
+    gCounter_.fetch_add(1, std::memory_order_relaxed);
+
+    auto featupdate = lastFeatureUpdateTime_.load(std::memory_order_acquire);
+    // Check warmup: cache is warmed up when it's full
+    const auto currTime = static_cast<uint64_t>(util::getCurrentTimeSec());
+
+    if (!isWarmedUp_.load(std::memory_order_acquire)) {
+      // Check if we're warmed up (simplified check - could also use occupied
+      // bytes)
+      size_t totalSize = lru_.size();
+      size_t tinySize =
+          static_cast<size_t>(config_.tinySizePercent * totalSize / 100);
+      size_t mainSize = totalSize - tinySize;
+
+      size_t tinySizeReal = lru_.getList(LruType::Tiny).size();
+      size_t mainSizeReal = lru_.getList(LruType::Main).size();
+      size_t isTinyWithRealWithinTarget = tinySize * 1.01 >= tinySizeReal;
+      if (lru_.size() > 0 && isTinyWithRealWithinTarget) {
+        printf(
+            "[%lu] S4FIFO Cache Warmed Up at time %lu with size %zu, tailsize %lu, last feature "
+            "update at %lu\n",
+            config_.tailSize,
+            static_cast<uint64_t>(util::getCurrentTimeSec()),
+            lru_.size(),
+            config_.tailSize,
+            featupdate);
+        isWarmedUp_.store(true, std::memory_order_release);
+        warmupTime_.store(currTime, std::memory_order_release);
+        lastFeatureUpdateTime_.store(currTime, std::memory_order_release);
+
+        featureCollector_.init(totalSize,
+                               tinySizeReal,
+                               mainSizeReal,
+                               totalSize * config_.ghostSizePercent / 100,
+                               config_.featureNumBuckets);
+        featureCollector_.setWarmedUp();
+      }
+    }
   }
   return;
 }
@@ -1154,11 +1475,7 @@ bool MMS4FIFO::Container<T, HookPtr>::replace(T& oldNode, T& newNode) noexcept {
     oldNode.unmarkInMMContainer();
     newNode.markInMMContainer();
     setUpdateTime(newNode, updateTime);
-    if (isAccessed(oldNode)) {
-      markAccessed(newNode);
-    } else {
-      unmarkAccessed(newNode);
-    }
+    setFreq(newNode, getFreq(oldNode));
     return true;
   });
 }
