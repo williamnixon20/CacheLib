@@ -111,14 +111,16 @@ struct CacheConfig : public JSONConfig {
   size_t tinySizePercent{10}; // Tiny size as percentage of whole cache
 
   // S4FIFO-specific:
-  size_t moveToMainThreshold{2};  // frequency threshold for small->main promotion
+  size_t moveToMainThreshold{1};  // frequency threshold for small->main promotion
   size_t ghostToMainThreshold{0}; // frequency threshold for ghost->main promotion
   double smallSkipRatio{0.0}; // ratio to skip frequency increment in small queue
 
   // ========== Feature Collection & Prediction Settings ==========
   size_t featureUpdateIntervalSecs{1440}; // Periodical feature updates (secs), default 24min
   bool enableFeatureCollection{false}; // Enable feature collection
-  bool enablePeriodicUpdates{true}; // If true, continuously update parameters periodically
+  bool enablePeriodicUpdates{false}; // If true, continuously update parameters periodically
+
+  bool enableTailHitsTracking{true}; // Enable tracking tail hits (only for 2Q)
 
   double allocFactor{1.5};
   // maximum alloc size generated using the alloc factor above.
