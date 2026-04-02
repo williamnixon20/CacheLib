@@ -6078,6 +6078,7 @@ extern template class CacheAllocator<LruCacheTrait>;
 extern template class CacheAllocator<LruCacheWithSpinBucketsTrait>;
 extern template class CacheAllocator<Lru2QCacheTrait>;
 extern template class CacheAllocator<S3FIFOCacheTrait>;
+extern template class CacheAllocator<S3FIFO5BCacheTrait>;
 extern template class CacheAllocator<TinyLFUCacheTrait>;
 extern template class CacheAllocator<WTinyLFUCacheTrait>;
 
@@ -6106,6 +6107,7 @@ using Lru5B2QAllocator = CacheAllocator<Lru5B2QCacheTrait>;
 // If accessed while in probation, it will eventually be promoted to the main queue.
 // Items in the tail of main queue will be reinserted if accessed.
 using S3FIFOAllocator = CacheAllocator<S3FIFOCacheTrait>;
+using S3FIFO5BAllocator = CacheAllocator<S3FIFO5BCacheTrait>;
 
 // CacheAllocator with Tiny LFU eviction policy
 // It has a window initially to gauage the frequency of accesses of newly

@@ -62,6 +62,13 @@ struct S3FIFOCacheTrait {
   using CompressedPtrType = CompressedPtr4B;
 };
 
+struct S3FIFO5BCacheTrait {
+  using MMType = MMS3FIFO;
+  using AccessType = ChainedHashTable;
+  using AccessTypeLocks = SharedMutexBuckets;
+  using CompressedPtrType = CompressedPtr5B;
+};
+
 struct TinyLFUCacheTrait {
   using MMType = MMTinyLFU;
   using AccessType = ChainedHashTable;

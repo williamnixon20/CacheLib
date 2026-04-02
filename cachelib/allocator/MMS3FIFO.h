@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <atomic>
 
 #pragma GCC diagnostic push
@@ -24,6 +25,7 @@
 #pragma GCC diagnostic pop
 
 #include <folly/container/Array.h>
+#include <folly/hash/Hash.h>
 #include <folly/lang/Align.h>
 #include <folly/synchronization/DistributedMutex.h>
 
@@ -34,6 +36,7 @@
 #include "cachelib/allocator/memory/serialize/gen-cpp2/objects_types.h"
 #include "cachelib/common/CompilerUtils.h"
 #include "cachelib/common/Mutex.h"
+#include "cachelib/common/AtomicHashSet.h"
 
 namespace facebook::cachelib {
 
@@ -272,7 +275,39 @@ class MMS3FIFO {
       (node.*HookPtr).setUpdateTime(time);
     }
 
+    static uint32_t hashNode(const T& node) noexcept {
+      return static_cast<uint32_t>(
+          folly::hasher<folly::StringPiece>()(node.getKey()));
+    }
+
     void removeLocked(T& node) noexcept;
+
+    // This function is not locked, thus the use of atomics.
+    void maybeGrowGhostCapacity() const noexcept {
+      // Approx size is lru.size(), but called under another function's lock.
+      const auto totalSize = approxSize_.load(std::memory_order_relaxed);
+      if (totalSize == 0 || config_.ghostSizePercent == 0) {
+        return;
+      }
+
+      const auto currCapacity = ghostCapacity_.load(std::memory_order_relaxed);
+      const auto capacity = totalSize * config_.ghostSizePercent / 100;
+
+      // Only grow if target capacity at least doubles.
+      if (capacity < 2 * currCapacity) {
+        return;
+      }
+
+      // Require stable size (cache is full), so ensure 2 consecutive calls didn't have a size change.
+      const auto lastRequestedSize =
+          lastSize_.exchange(totalSize, std::memory_order_relaxed);
+      if (lastRequestedSize != totalSize) {
+        return;
+      }
+
+      ghost_.resize(capacity);
+      ghostCapacity_.store(capacity, std::memory_order_relaxed);
+    }
 
     // Lazy promotion: when Small exceeds smallSizePercent, scan Small tail
     // and promote accessed items to Main. Called under lock before yielding
@@ -309,6 +344,12 @@ class MMS3FIFO {
 
     Config config_{};
 
+    // mutable util::FIFOHashSet32 ghost_{};
+    mutable util::AtomicFIFOHashSet32 ghost_{};
+    mutable std::atomic<size_t> ghostCapacity_{0};
+    mutable std::atomic<size_t> lastSize_{0};
+    mutable std::atomic<size_t> approxSize_{0};
+
     friend class MMTypeTest<MMS3FIFO>;
   };
 };
@@ -317,7 +358,8 @@ class MMS3FIFO {
 template <typename T, MMS3FIFO::Hook<T> T::* HookPtr>
 MMS3FIFO::Container<T, HookPtr>::Container(serialization::MMS3FIFOObject object,
                                            PtrCompressor compressor)
-    : lru_(*object.lrus(), std::move(compressor)), config_(*object.config()) {}
+    : lru_(*object.lrus(), std::move(compressor)), config_(*object.config()) {
+}
 
 template <typename T, MMS3FIFO::Hook<T> T::* HookPtr>
 bool MMS3FIFO::Container<T, HookPtr>::recordAccess(T& node,
@@ -347,13 +389,19 @@ template <typename T, MMS3FIFO::Hook<T> T::* HookPtr>
 bool MMS3FIFO::Container<T, HookPtr>::add(T& node) noexcept {
   const auto currTime = static_cast<Time>(util::getCurrentTimeSec());
 
-  return lruMutex_->lock_combine([this, &node, currTime]() {
+  const auto insertIntoMain = ghost_.contains(hashNode(node));
+  return lruMutex_->lock_combine([this, &node, currTime, insertIntoMain]() {
     if (node.isInMMContainer()) {
       return false;
     }
 
-    lru_.getList(LruType::Small).linkAtHead(node);
-    markSmall(node);
+    auto listType = insertIntoMain ? LruType::Main : LruType::Small;
+    lru_.getList(listType).linkAtHead(node);
+    if (insertIntoMain) {
+      unmarkSmall(node);
+    } else {
+      markSmall(node);
+    }
     node.markInMMContainer();
     setUpdateTime(node, currTime);
     unmarkAccessed(node);
@@ -406,13 +454,14 @@ void MMS3FIFO::Container<T, HookPtr>::reinsertMain() const noexcept {
 template <typename T, MMS3FIFO::Hook<T> T::* HookPtr>
 typename MMS3FIFO::Container<T, HookPtr>::LockedIterator
 MMS3FIFO::Container<T, HookPtr>::getEvictionIterator() const noexcept {
+  maybeGrowGhostCapacity();
   LockHolder l(*lruMutex_);
   lazyPromoteSmallTailLocked();
 
   const auto totalSize = lru_.size();
   const auto targetSmallSize =
       totalSize == 0 ? 0 : totalSize * config_.smallSizePercent / 100;
-
+  approxSize_.store(lru_.size(), std::memory_order_relaxed);
   if (lru_.getList(LruType::Small).size() > targetSmallSize) {
     // Small exceeds target — evict from Small first
     return LockedIterator{std::move(l), lru_.rbegin()};
@@ -426,7 +475,9 @@ MMS3FIFO::Container<T, HookPtr>::getEvictionIterator() const noexcept {
 template <typename T, MMS3FIFO::Hook<T> T::* HookPtr>
 template <typename F>
 void MMS3FIFO::Container<T, HookPtr>::withEvictionIterator(F&& fun) {
+  maybeGrowGhostCapacity();
   auto makeItr = [this]() {
+    approxSize_.store(lru_.size(), std::memory_order_relaxed);
     lazyPromoteSmallTailLocked();
     const auto totalSize = lru_.size();
     const auto targetSmallSize =
@@ -481,6 +532,9 @@ void MMS3FIFO::Container<T, HookPtr>::remove(Iterator& it) noexcept {
   T& node = *it;
   XDCHECK(node.isInMMContainer());
   ++it;
+  if (isSmall(node)) {
+    ghost_.insert(hashNode(node));
+  }
   removeLocked(node);
 }
 
