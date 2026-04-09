@@ -35,8 +35,34 @@ CacheLib has one single version number `facebook::cachelib::kCachelibVersion` th
 
 This script is used by many of Meta's OSS tools.  It will download and build all of the necessary dependencies first, and will then invoke cmake etc to build folly.  This will help ensure that you build with relevant versions of all of the dependent libraries, taking into account what versions are installed locally on your system.
 
-### Dependencies
+python3 ./build/fbcode_builder/getdeps.py build \
+  cachelib \
+  --no-tests \
+  --no-deps \
+  --build-type=RelWithDebInfo\
+  --src-dir="/home/cc/cachelib-fork" \
+  --scratch-path="/home/cc/cachelib-fork/_deps_rel" \
+  --install-dir="/home/cc/cachelib-fork/opt_rel"
 
+python3 ./build/fbcode_builder/getdeps.py build \
+  cachelib \
+  --no-tests \
+  --build-type=RelWithDebInfo\
+  --src-dir="/home/cc/cachelib-fork" \
+  --scratch-path="/home/cc/cachelib-fork/_deps_rel" \
+  --install-dir="/home/cc/cachelib-fork/opt_rel"
+
+python3 ./build/fbcode_builder/getdeps.py env cachelib --scratch-path=/home/cc/cachelib-fork/_deps_rel --install-dir=/home/cc/cachelib-fork/opt_rel
+
+/home/cc/cachelib-fork/opt_rel/bin/cachebench --json-test-config /home/cc/cachelib-fork/opt/test_configs/hit_ratio/graph_cache_leader_assocs/config_s3fifo.json --report-api-latency=true --report_ac_memory_usage_stats="raw"
+
+
+/home/cc/cachelib-fork/opt_rel/bin/cachebench --json-test-config /home/cc/cachelib-fork/opt/test_configs/hit_ratio/graph_cache_leader_assocs/config_lru.json --report-api-latency=true --report_ac_memory_usage_stats="raw"
+
+python3 /home/cc/cachelib-fork/opt/test_configs/hit_ratio/runner.py /home/cc/cachelib-fork/opt_rel/test_configs/hit_ratio
+
+### Dependencies
+ 
 You can install system dependencies to save building them:
 
     # Clone the repo

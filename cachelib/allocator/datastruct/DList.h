@@ -173,6 +173,10 @@ class DList {
   // list.
   void moveToHead(T& node) noexcept;
 
+  // Moves the contiguous suffix [first, tail] to the head of the list while
+  // preserving the relative order of the moved nodes.
+  void moveSuffixToHead(T& first) noexcept;
+
   T* getHead() const noexcept { return head_; }
   T* getTail() const noexcept { return tail_; }
 
@@ -391,6 +395,27 @@ void DList<T, HookPtr>::moveToHead(T& node) noexcept {
   }
   unlink(node);
   linkAtHead(node);
+}
+
+template <typename T, DListHook<T> T::*HookPtr>
+void DList<T, HookPtr>::moveSuffixToHead(T& first) noexcept {
+  if (&first == head_ || head_ == nullptr || tail_ == nullptr) {
+    return;
+  }
+
+  auto* const prev = getPrev(first);
+  XDCHECK_NE(prev, nullptr);
+
+  auto* const oldHead = head_;
+  auto* const oldTail = tail_;
+
+  setNext(*prev, nullptr);
+  setPrev(first, nullptr);
+  setNext(*oldTail, oldHead);
+  setPrev(*oldHead, oldTail);
+
+  head_ = &first;
+  tail_ = prev;
 }
 
 /* Iterator Implementation */

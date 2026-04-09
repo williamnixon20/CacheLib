@@ -152,3 +152,30 @@ TEST_F(DListTest, LinkTail) {
   ASSERT_EQ(list.getPrev(node3), &node2);
   ASSERT_EQ(list.getNext(node3), nullptr);
 }
+
+TEST_F(DListTest, MoveSuffixToHead) {
+  DListImpl list{DListNode::PtrCompressor{}};
+
+  DListNode node1, node2, node3, node4, node5;
+  list.linkAtTail(node1);
+  list.linkAtTail(node2);
+  list.linkAtTail(node3);
+  list.linkAtTail(node4);
+  list.linkAtTail(node5);
+
+  list.moveSuffixToHead(node4);
+
+  ASSERT_EQ(list.getHead(), &node4);
+  ASSERT_EQ(list.getTail(), &node3);
+
+  ASSERT_EQ(list.getPrev(node4), nullptr);
+  ASSERT_EQ(list.getNext(node4), &node5);
+  ASSERT_EQ(list.getPrev(node5), &node4);
+  ASSERT_EQ(list.getNext(node5), &node1);
+  ASSERT_EQ(list.getPrev(node1), &node5);
+  ASSERT_EQ(list.getNext(node1), &node2);
+  ASSERT_EQ(list.getPrev(node2), &node1);
+  ASSERT_EQ(list.getNext(node2), &node3);
+  ASSERT_EQ(list.getPrev(node3), &node2);
+  ASSERT_EQ(list.getNext(node3), nullptr);
+}

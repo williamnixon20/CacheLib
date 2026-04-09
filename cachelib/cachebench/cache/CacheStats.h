@@ -217,8 +217,8 @@ struct Stats {
         }
 
         out << folly::sformat(
-                   "pid{:2} cid{:4} {:8.2f}{} usageFraction: {:4.2f}", pid, cid,
-                   allocSize, allocSizeSuffix, acUsageFraction)
+                   "pid{:2} cid{:4} {:8.2f}{} usageFraction: {:4.2f} slabUsed: {:4}", pid, cid,
+                   allocSize, allocSizeSuffix, acUsageFraction, stats.usedSlabs)
             << std::endl;
       });
     }
