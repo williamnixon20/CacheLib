@@ -1,0 +1,1981 @@
+===JSON Config===
+{
+  "cache_config": {
+    "cacheSizeMB": 8192,
+    "poolRebalanceIntervalSec": 1,
+    "allocator": "LRU",
+    "rebalanceStrategy": "hits"
+  },
+  "test_config": {
+    "addChainedRatio": 0.0,
+    "delRatio": 0.0,
+    "enableLookaside": true,
+    "getRatio": 0.9568797693103636,
+    "keySizeRange": [
+      1,
+      8,
+      64
+    ],
+    "keySizeRangeProbability": [
+      0.3,
+      0.7
+    ],
+    "loneGetRatio": 0.043120230689636455,
+    "numKeys": 37244430,
+    "numOps": 50000000,
+    "numThreads": 48,
+    "popDistFile": "pop.json",
+    "setRatio": 0.0,
+    "valSizeDistFile": "sizes.json"
+  }
+}
+reading distribution params from config_hit_ratio_longer/graph_cache_follower_fbobj/sizes.json
+reading distribution params from config_hit_ratio_longer/graph_cache_follower_fbobj/pop.json
+Welcome to OSS version of cachebench
+Created 31,212,749 keys in 0.58 mins
+Generating 2400.00M sampled accesses
+Generated access patterns in 0.03 mins
+Total 2400.00M ops to be run
+14:57:21       0.00M ops completed. 0 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio   0.00% (RAM   0.00%, NVM   0.00%).
+14:57:36     153.36M ops completed. 16390106 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  85.73% (RAM  85.73%, NVM   0.00%).
+14:57:51     277.18M ops completed. 16869669 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  87.82% (RAM  87.82%, NVM   0.00%).
+14:58:06     396.73M ops completed. 17363418 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  87.94% (RAM  87.94%, NVM   0.00%).
+14:58:21     513.47M ops completed. 17837807 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.02% (RAM  88.02%, NVM   0.00%).
+14:58:36     631.69M ops completed. 18234471 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.11% (RAM  88.11%, NVM   0.00%).
+14:58:51     748.91M ops completed. 18631099 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.19% (RAM  88.19%, NVM   0.00%).
+14:59:06     865.90M ops completed. 19018105 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.27% (RAM  88.27%, NVM   0.00%).
+14:59:21     982.40M ops completed. 19414765 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.34% (RAM  88.34%, NVM   0.00%).
+14:59:36    1098.77M ops completed. 19811102 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.41% (RAM  88.41%, NVM   0.00%).
+14:59:51    1214.81M ops completed. 20207238 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.48% (RAM  88.48%, NVM   0.00%).
+15:00:06    1330.86M ops completed. 20563062 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.53% (RAM  88.53%, NVM   0.00%).
+15:00:21    1448.26M ops completed. 20841569 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.59% (RAM  88.59%, NVM   0.00%).
+15:00:36    1566.02M ops completed. 21145823 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.64% (RAM  88.64%, NVM   0.00%).
+15:00:51    1683.85M ops completed. 21420611 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.69% (RAM  88.69%, NVM   0.00%).
+15:01:06    1802.69M ops completed. 21700934 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.75% (RAM  88.75%, NVM   0.00%).
+15:01:21    1921.67M ops completed. 21986910 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.80% (RAM  88.80%, NVM   0.00%).
+15:01:36    2040.66M ops completed. 22265482 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.85% (RAM  88.85%, NVM   0.00%).
+15:01:51    2160.13M ops completed. 22536085 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.88% (RAM  88.88%, NVM   0.00%).
+15:02:06    2279.83M ops completed. 22819566 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.94% (RAM  88.94%, NVM   0.00%).
+15:02:21    2392.87M ops completed. 23094051 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.98% (RAM  88.98%, NVM   0.00%).
+== Test Results ==
+== Allocator Stats ==
+Items in RAM  : 23,143,467
+Items in NVM  : 0
+Alloc Attempts: 280,593,308 Success: 100.00%
+Evict Attempts: 257,336,917 Success: 100.04%
+RAM Evictions : 257,446,822
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   232.00MB
+pid 0 cid   2   144.00B memorySize:   640.00MB
+pid 0 cid   3   216.00B memorySize:   804.00MB
+pid 0 cid   4   328.00B memorySize:     1.64GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   183.96MB
+pid 0 cid  10     3.70KB memorySize:   135.95MB
+pid 0 cid  11     5.55KB memorySize:   239.86MB
+pid 0 cid  12     8.32KB memorySize:    11.99MB
+pid 0 cid  13    12.48KB memorySize:     8.00MB
+pid 0 cid  14    18.78KB memorySize:     4.00MB
+pid 0 cid  15    28.24KB memorySize:    12.00MB
+pid 0 cid  16    42.66KB memorySize:    12.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.56MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 0.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 2,400,000,000
+Hit Ratio     :  88.31%
+Cache Find API latency p50      :    1952.00 ns
+Cache Find API latency p90      :    3633.00 ns
+Cache Find API latency p99      :    6185.00 ns
+Cache Find API latency p999     :   19264.00 ns
+Cache Find API latency p9999    :  314697.00 ns
+Cache Find API latency p99999   :  426034.00 ns
+Cache Find API latency p999999  :  437168.00 ns
+Cache Find API latency p100     : 9324338.00 ns
+Cache Allocate API latency p50      :    5766.00 ns
+Cache Allocate API latency p90      :   28456.00 ns
+Cache Allocate API latency p99      :  255174.00 ns
+Cache Allocate API latency p999     :  997927.00 ns
+Cache Allocate API latency p9999    : 1966515.00 ns
+Cache Allocate API latency p99999   : 2271023.00 ns
+Cache Allocate API latency p999999  : 2301474.00 ns
+Cache Allocate API latency p100     : 10558700.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 292 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:    110,021, success: 100.00%
+Total eviction executed 257446822
+
+== Throughput for  ==
+Total Ops : 2400.00 million
+Total sets: 280,593,308
+get       : 7,917,359/s, success   :  88.31%
+couldExist:         0/s, success   :   0.00%
+set       :   925,649/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+99     :  633923.00 ns
+Cache Allocate API latency p9999    : 1673366.00 ns
+Cache Allocate API latency p99999   : 2043406.00 ns
+Cache Allocate API latency p999999  : 2080410.00 ns
+Cache Allocate API latency p100     : 16016569.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 4 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:        219, success: 100.00%
+Total eviction executed 5504853
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 153,405,349
+Hit Ratio     :  85.73%
+RAM Hit Ratio :  85.73%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 153.36 million
+Total sets: 21,890,162
+get       : 10,214,847/s, success   :  85.73%
+couldExist:         0/s, success   :   0.00%
+set       : 1,457,996/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+14:57:51     277.18M ops completed. 16869669 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  87.82% (RAM  87.82%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 16,869,669
+Items in NVM  : 0
+Alloc Attempts: 36,978,258 Success: 100.00%
+Evict Attempts: 20,106,974 Success: 99.97%
+RAM Evictions : 20,101,000
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   192.00B
+pid 0 cid   1    96.00B memorySize:   108.00MB
+pid 0 cid   2   144.00B memorySize:   300.00MB
+pid 0 cid   3   216.00B memorySize:   468.00MB
+pid 0 cid   4   328.00B memorySize:     1.36GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    71.96MB
+pid 0 cid  13    12.48KB memorySize:    35.99MB
+pid 0 cid  14    18.78KB memorySize:    43.98MB
+pid 0 cid  15    28.24KB memorySize:    99.98MB
+pid 0 cid  16    42.66KB memorySize:   511.97MB
+pid 0 cid  17    64.00KB memorySize:    28.00MB
+pid 0 cid  18    97.52KB memorySize:    12.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     1.56MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 277,196,098
+Hit Ratio     :  86.66%
+Cache Find API latency p50      :    1658.00 ns
+Cache Find API latency p90      :    3206.00 ns
+Cache Find API latency p99      :    7206.00 ns
+Cache Find API latency p999     :   23916.00 ns
+Cache Find API latency p9999    :  313839.00 ns
+Cache Find API latency p99999   :  428020.00 ns
+Cache Find API latency p999999  :  439438.00 ns
+Cache Find API latency p100     : 16097330.00 ns
+Cache Allocate API latency p50      :    3693.00 ns
+Cache Allocate API latency p90      :   13229.00 ns
+Cache Allocate API latency p99      :  161997.00 ns
+Cache Allocate API latency p999     :  812845.00 ns
+Cache Allocate API latency p9999    : 1853238.00 ns
+Cache Allocate API latency p99999   : 2203746.00 ns
+Cache Allocate API latency p999999  : 2238797.00 ns
+Cache Allocate API latency p100     : 16016569.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 19 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:      1,273, success: 100.00%
+Total eviction executed 20103310
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 123,790,747
+Hit Ratio     :  87.82%
+RAM Hit Ratio :  87.82%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 277.18 million
+Total sets: 36,970,964
+get       : 9,232,129/s, success   :  86.66%
+couldExist:         0/s, success   :   0.00%
+set       : 1,231,417/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+14:58:06     396.73M ops completed. 17363418 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  87.94% (RAM  87.94%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 17,363,418
+Items in NVM  : 0
+Alloc Attempts: 51,402,099 Success: 100.00%
+Evict Attempts: 34,035,515 Success: 99.99%
+RAM Evictions : 34,031,391
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   192.00B
+pid 0 cid   1    96.00B memorySize:   124.00MB
+pid 0 cid   2   144.00B memorySize:   344.00MB
+pid 0 cid   3   216.00B memorySize:   468.00MB
+pid 0 cid   4   328.00B memorySize:     1.36GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    71.96MB
+pid 0 cid  13    12.48KB memorySize:    35.99MB
+pid 0 cid  14    18.78KB memorySize:    43.98MB
+pid 0 cid  15    28.24KB memorySize:    99.98MB
+pid 0 cid  16    42.66KB memorySize:   455.97MB
+pid 0 cid  17    64.00KB memorySize:    24.00MB
+pid 0 cid  18    97.52KB memorySize:    12.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     1.56MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 396,750,791
+Hit Ratio     :  87.05%
+Cache Find API latency p50      :    1695.00 ns
+Cache Find API latency p90      :    3227.00 ns
+Cache Find API latency p99      :    7031.00 ns
+Cache Find API latency p999     :   23500.00 ns
+Cache Find API latency p9999    :  334110.00 ns
+Cache Find API latency p99999   :  455465.00 ns
+Cache Find API latency p999999  :  467600.00 ns
+Cache Find API latency p100     : 16097330.00 ns
+Cache Allocate API latency p50      :    4268.00 ns
+Cache Allocate API latency p90      :   16700.00 ns
+Cache Allocate API latency p99      :  197381.00 ns
+Cache Allocate API latency p999     :  883940.00 ns
+Cache Allocate API latency p9999    : 2016589.00 ns
+Cache Allocate API latency p99999   : 2367038.00 ns
+Cache Allocate API latency p999999  : 2402083.00 ns
+Cache Allocate API latency p100     : 16016569.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 34 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:      2,681, success: 100.00%
+Total eviction executed 34033441
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 119,554,693
+Hit Ratio     :  87.94%
+RAM Hit Ratio :  87.94%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 396.73 million
+Total sets: 51,395,300
+get       : 8,809,515/s, success   :  87.05%
+couldExist:         0/s, success   :   0.00%
+set       : 1,141,240/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+14:58:21     513.47M ops completed. 17837807 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.02% (RAM  88.02%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 17,837,807
+Items in NVM  : 0
+Alloc Attempts: 65,387,554 Success: 100.00%
+Evict Attempts: 47,545,081 Success: 99.99%
+RAM Evictions : 47,542,137
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   256.00B
+pid 0 cid   1    96.00B memorySize:   140.00MB
+pid 0 cid   2   144.00B memorySize:   380.00MB
+pid 0 cid   3   216.00B memorySize:   476.00MB
+pid 0 cid   4   328.00B memorySize:     1.36GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    71.96MB
+pid 0 cid  13    12.48KB memorySize:    35.99MB
+pid 0 cid  14    18.78KB memorySize:    43.98MB
+pid 0 cid  15    28.24KB memorySize:    99.98MB
+pid 0 cid  16    42.66KB memorySize:   403.98MB
+pid 0 cid  17    64.00KB memorySize:    20.00MB
+pid 0 cid  18    97.52KB memorySize:     8.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     2.67MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 513,487,402
+Hit Ratio     :  87.27%
+Cache Find API latency p50      :    1719.00 ns
+Cache Find API latency p90      :    3246.00 ns
+Cache Find API latency p99      :    6880.00 ns
+Cache Find API latency p999     :   23508.00 ns
+Cache Find API latency p9999    :  354928.00 ns
+Cache Find API latency p99999   :  488160.00 ns
+Cache Find API latency p999999  :  501483.00 ns
+Cache Find API latency p100     : 16097330.00 ns
+Cache Allocate API latency p50      :    4572.00 ns
+Cache Allocate API latency p90      :   19041.00 ns
+Cache Allocate API latency p99      :  224371.00 ns
+Cache Allocate API latency p999     :  927861.00 ns
+Cache Allocate API latency p9999    : 2058009.00 ns
+Cache Allocate API latency p99999   : 2436295.00 ns
+Cache Allocate API latency p999999  : 2474124.00 ns
+Cache Allocate API latency p100     : 16016569.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 49 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:      4,035, success: 100.00%
+Total eviction executed 47544074
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 116,736,611
+Hit Ratio     :  88.02%
+RAM Hit Ratio :  88.02%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 513.47 million
+Total sets: 65,380,571
+get       : 8,551,471/s, success   :  87.27%
+couldExist:         0/s, success   :   0.00%
+set       : 1,088,864/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+14:58:36     631.69M ops completed. 18234471 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.11% (RAM  88.11%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 18,234,471
+Items in NVM  : 0
+Alloc Attempts: 79,446,850 Success: 100.00%
+Evict Attempts: 61,206,163 Success: 100.00%
+RAM Evictions : 61,204,314
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   256.00B
+pid 0 cid   1    96.00B memorySize:   148.00MB
+pid 0 cid   2   144.00B memorySize:   404.00MB
+pid 0 cid   3   216.00B memorySize:   504.00MB
+pid 0 cid   4   328.00B memorySize:     1.36GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    71.96MB
+pid 0 cid  13    12.48KB memorySize:    35.99MB
+pid 0 cid  14    18.78KB memorySize:    43.98MB
+pid 0 cid  15    28.24KB memorySize:    99.98MB
+pid 0 cid  16    42.66KB memorySize:   347.98MB
+pid 0 cid  17    64.00KB memorySize:    16.00MB
+pid 0 cid  18    97.52KB memorySize:     8.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     2.67MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 631,707,740
+Hit Ratio     :  87.42%
+Cache Find API latency p50      :    1791.00 ns
+Cache Find API latency p90      :    3273.00 ns
+Cache Find API latency p99      :    6357.00 ns
+Cache Find API latency p999     :   21431.00 ns
+Cache Find API latency p9999    :  371005.00 ns
+Cache Find API latency p99999   :  509064.00 ns
+Cache Find API latency p999999  :  522870.00 ns
+Cache Find API latency p100     : 11808971.00 ns
+Cache Allocate API latency p50      :    5617.00 ns
+Cache Allocate API latency p90      :   29357.00 ns
+Cache Allocate API latency p99      :  300838.00 ns
+Cache Allocate API latency p999     : 1024457.00 ns
+Cache Allocate API latency p9999    : 2137499.00 ns
+Cache Allocate API latency p99999   : 2510408.00 ns
+Cache Allocate API latency p999999  : 2547699.00 ns
+Cache Allocate API latency p100     : 15052614.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 64 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:      5,443, success: 100.00%
+Total eviction executed 61206412
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 118,220,338
+Hit Ratio     :  88.11%
+RAM Hit Ratio :  88.11%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 631.69 million
+Total sets: 79,439,555
+get       : 8,416,199/s, success   :  87.42%
+couldExist:         0/s, success   :   0.00%
+set       : 1,058,397/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+14:58:51     748.91M ops completed. 18631099 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.19% (RAM  88.19%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 18,631,099
+Items in NVM  : 0
+Alloc Attempts: 93,290,639 Success: 100.00%
+Evict Attempts: 74,651,711 Success: 100.00%
+RAM Evictions : 74,651,123
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   256.00B
+pid 0 cid   1    96.00B memorySize:   156.00MB
+pid 0 cid   2   144.00B memorySize:   428.00MB
+pid 0 cid   3   216.00B memorySize:   532.00MB
+pid 0 cid   4   328.00B memorySize:     1.36GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    71.96MB
+pid 0 cid  13    12.48KB memorySize:    35.99MB
+pid 0 cid  14    18.78KB memorySize:    43.98MB
+pid 0 cid  15    28.24KB memorySize:    99.98MB
+pid 0 cid  16    42.66KB memorySize:   287.98MB
+pid 0 cid  17    64.00KB memorySize:    16.00MB
+pid 0 cid  18    97.52KB memorySize:     8.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     2.89MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 748,924,984
+Hit Ratio     :  87.54%
+Cache Find API latency p50      :    1813.00 ns
+Cache Find API latency p90      :    3303.00 ns
+Cache Find API latency p99      :    6336.00 ns
+Cache Find API latency p999     :   22042.00 ns
+Cache Find API latency p9999    :  386751.00 ns
+Cache Find API latency p99999   :  530088.00 ns
+Cache Find API latency p999999  :  544422.00 ns
+Cache Find API latency p100     : 10362612.00 ns
+Cache Allocate API latency p50      :    5683.00 ns
+Cache Allocate API latency p90      :   30139.00 ns
+Cache Allocate API latency p99      :  319603.00 ns
+Cache Allocate API latency p999     : 1049277.00 ns
+Cache Allocate API latency p9999    : 2166625.00 ns
+Cache Allocate API latency p99999   : 2541811.00 ns
+Cache Allocate API latency p999999  : 2579330.00 ns
+Cache Allocate API latency p100     : 10141909.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 79 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:      6,883, success: 100.00%
+Total eviction executed 74653210
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 117,217,244
+Hit Ratio     :  88.19%
+RAM Hit Ratio :  88.19%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 748.91 million
+Total sets: 93,283,164
+get       : 8,314,869/s, success   :  87.54%
+couldExist:         0/s, success   :   0.00%
+set       : 1,035,692/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+14:59:06     865.90M ops completed. 19018105 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.27% (RAM  88.27%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 19,018,105
+Items in NVM  : 0
+Alloc Attempts: 107,019,827 Success: 100.00%
+Evict Attempts: 87,992,381 Success: 100.00%
+RAM Evictions : 87,992,265
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   164.00MB
+pid 0 cid   2   144.00B memorySize:   448.00MB
+pid 0 cid   3   216.00B memorySize:   564.00MB
+pid 0 cid   4   328.00B memorySize:     1.36GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    71.96MB
+pid 0 cid  13    12.48KB memorySize:    35.99MB
+pid 0 cid  14    18.78KB memorySize:    43.98MB
+pid 0 cid  15    28.24KB memorySize:    99.98MB
+pid 0 cid  16    42.66KB memorySize:   235.99MB
+pid 0 cid  17    64.00KB memorySize:    12.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     2.89MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 865,923,094
+Hit Ratio     :  87.64%
+Cache Find API latency p50      :    1831.00 ns
+Cache Find API latency p90      :    3327.00 ns
+Cache Find API latency p99      :    6271.00 ns
+Cache Find API latency p999     :   21681.00 ns
+Cache Find API latency p9999    :  385591.00 ns
+Cache Find API latency p99999   :  528906.00 ns
+Cache Find API latency p999999  :  543238.00 ns
+Cache Find API latency p100     : 11905751.00 ns
+Cache Allocate API latency p50      :    5710.00 ns
+Cache Allocate API latency p90      :   30828.00 ns
+Cache Allocate API latency p99      :  327758.00 ns
+Cache Allocate API latency p999     : 1059863.00 ns
+Cache Allocate API latency p9999    : 2102513.00 ns
+Cache Allocate API latency p99999   : 2449412.00 ns
+Cache Allocate API latency p999999  : 2484101.00 ns
+Cache Allocate API latency p100     : 10141909.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 94 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:      8,237, success: 100.00%
+Total eviction executed 87994618
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 116,998,110
+Hit Ratio     :  88.27%
+RAM Hit Ratio :  88.27%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 865.90 million
+Total sets: 107,011,496
+get       : 8,240,374/s, success   :  87.64%
+couldExist:         0/s, success   :   0.00%
+set       : 1,018,376/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+14:59:21     982.40M ops completed. 19414765 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.34% (RAM  88.34%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 19,414,765
+Items in NVM  : 0
+Alloc Attempts: 120,603,011 Success: 100.00%
+Evict Attempts: 101,177,319 Success: 100.00%
+RAM Evictions : 101,178,473
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   172.00MB
+pid 0 cid   2   144.00B memorySize:   472.00MB
+pid 0 cid   3   216.00B memorySize:   592.00MB
+pid 0 cid   4   328.00B memorySize:     1.36GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    71.96MB
+pid 0 cid  13    12.48KB memorySize:    35.99MB
+pid 0 cid  14    18.78KB memorySize:    43.98MB
+pid 0 cid  15    28.24KB memorySize:    99.98MB
+pid 0 cid  16    42.66KB memorySize:   179.99MB
+pid 0 cid  17    64.00KB memorySize:     8.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.11MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 982,423,609
+Hit Ratio     :  87.72%
+Cache Find API latency p50      :    1842.00 ns
+Cache Find API latency p90      :    3355.00 ns
+Cache Find API latency p99      :    6259.00 ns
+Cache Find API latency p999     :   21346.00 ns
+Cache Find API latency p9999    :  378807.00 ns
+Cache Find API latency p99999   :  520260.00 ns
+Cache Find API latency p999999  :  534405.00 ns
+Cache Find API latency p100     : 11905751.00 ns
+Cache Allocate API latency p50      :    5749.00 ns
+Cache Allocate API latency p90      :   31655.00 ns
+Cache Allocate API latency p99      :  328200.00 ns
+Cache Allocate API latency p999     : 1061659.00 ns
+Cache Allocate API latency p9999    : 2117020.00 ns
+Cache Allocate API latency p99999   : 2468116.00 ns
+Cache Allocate API latency p999999  : 2503226.00 ns
+Cache Allocate API latency p100     : 9619721.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 109 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:      9,645, success: 100.00%
+Total eviction executed 101180794
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 116,500,515
+Hit Ratio     :  88.34%
+RAM Hit Ratio :  88.34%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 982.40 million
+Total sets: 120,594,526
+get       : 8,180,355/s, success   :  87.72%
+couldExist:         0/s, success   :   0.00%
+set       : 1,004,176/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+14:59:36    1098.77M ops completed. 19811102 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.41% (RAM  88.41%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 19,811,102
+Items in NVM  : 0
+Alloc Attempts: 134,092,951 Success: 100.00%
+Evict Attempts: 114,269,067 Success: 100.00%
+RAM Evictions : 114,272,904
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   180.00MB
+pid 0 cid   2   144.00B memorySize:   496.00MB
+pid 0 cid   3   216.00B memorySize:   620.00MB
+pid 0 cid   4   328.00B memorySize:     1.36GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    71.96MB
+pid 0 cid  13    12.48KB memorySize:    35.99MB
+pid 0 cid  14    18.78KB memorySize:    35.99MB
+pid 0 cid  15    28.24KB memorySize:    95.98MB
+pid 0 cid  16    42.66KB memorySize:   131.99MB
+pid 0 cid  17    64.00KB memorySize:     8.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.11MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 1,098,785,716
+Hit Ratio     :  87.80%
+Cache Find API latency p50      :    1856.00 ns
+Cache Find API latency p90      :    3390.00 ns
+Cache Find API latency p99      :    6321.00 ns
+Cache Find API latency p999     :   21342.00 ns
+Cache Find API latency p9999    :  381804.00 ns
+Cache Find API latency p99999   :  524785.00 ns
+Cache Find API latency p999999  :  539084.00 ns
+Cache Find API latency p100     : 11905751.00 ns
+Cache Allocate API latency p50      :    5796.00 ns
+Cache Allocate API latency p90      :   32324.00 ns
+Cache Allocate API latency p99      :  338410.00 ns
+Cache Allocate API latency p999     : 1072415.00 ns
+Cache Allocate API latency p9999    : 2130321.00 ns
+Cache Allocate API latency p99999   : 2467441.00 ns
+Cache Allocate API latency p999999  : 2501153.00 ns
+Cache Allocate API latency p100     : 9586881.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 124 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     11,378, success: 100.00%
+Total eviction executed 114275224
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 116,362,107
+Hit Ratio     :  88.41%
+RAM Hit Ratio :  88.41%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 1098.77 million
+Total sets: 134,085,422
+get       : 8,132,669/s, success   :  87.80%
+couldExist:         0/s, success   :   0.00%
+set       :   992,452/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+14:59:51    1214.81M ops completed. 20207238 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.48% (RAM  88.48%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 20,207,238
+Items in NVM  : 0
+Alloc Attempts: 147,457,914 Success: 100.00%
+Evict Attempts: 127,235,802 Success: 100.01%
+RAM Evictions : 127,242,262
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   188.00MB
+pid 0 cid   2   144.00B memorySize:   520.00MB
+pid 0 cid   3   216.00B memorySize:   648.00MB
+pid 0 cid   4   328.00B memorySize:     1.36GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    71.96MB
+pid 0 cid  13    12.48KB memorySize:    35.99MB
+pid 0 cid  14    18.78KB memorySize:    27.99MB
+pid 0 cid  15    28.24KB memorySize:    75.98MB
+pid 0 cid  16    42.66KB memorySize:    99.99MB
+pid 0 cid  17    64.00KB memorySize:     8.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.11MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 1,214,825,624
+Hit Ratio     :  87.86%
+Cache Find API latency p50      :    1872.00 ns
+Cache Find API latency p90      :    3426.00 ns
+Cache Find API latency p99      :    6381.00 ns
+Cache Find API latency p999     :   21415.00 ns
+Cache Find API latency p9999    :  382609.00 ns
+Cache Find API latency p99999   :  525597.00 ns
+Cache Find API latency p999999  :  539896.00 ns
+Cache Find API latency p100     : 11905751.00 ns
+Cache Allocate API latency p50      :    5841.00 ns
+Cache Allocate API latency p90      :   32981.00 ns
+Cache Allocate API latency p99      :  343591.00 ns
+Cache Allocate API latency p999     : 1078019.00 ns
+Cache Allocate API latency p9999    : 2115482.00 ns
+Cache Allocate API latency p99999   : 2438503.00 ns
+Cache Allocate API latency p999999  : 2470806.00 ns
+Cache Allocate API latency p100     : 9920925.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 139 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     13,307, success: 100.00%
+Total eviction executed 127244296
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 116,039,908
+Hit Ratio     :  88.48%
+RAM Hit Ratio :  88.48%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 1214.81 million
+Total sets: 147,451,084
+get       : 8,092,474/s, success   :  87.86%
+couldExist:         0/s, success   :   0.00%
+set       :   982,250/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+15:00:06    1330.86M ops completed. 20563062 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.53% (RAM  88.53%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 20,563,062
+Items in NVM  : 0
+Alloc Attempts: 160,772,889 Success: 100.00%
+Evict Attempts: 140,191,889 Success: 100.01%
+RAM Evictions : 140,202,179
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   196.00MB
+pid 0 cid   2   144.00B memorySize:   536.00MB
+pid 0 cid   3   216.00B memorySize:   672.00MB
+pid 0 cid   4   328.00B memorySize:     1.37GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    63.96MB
+pid 0 cid  13    12.48KB memorySize:    27.99MB
+pid 0 cid  14    18.78KB memorySize:    23.99MB
+pid 0 cid  15    28.24KB memorySize:    63.99MB
+pid 0 cid  16    42.66KB memorySize:    76.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.11MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 1,330,867,849
+Hit Ratio     :  87.92%
+Cache Find API latency p50      :    1878.00 ns
+Cache Find API latency p90      :    3458.00 ns
+Cache Find API latency p99      :    6392.00 ns
+Cache Find API latency p999     :   21577.00 ns
+Cache Find API latency p9999    :  383201.00 ns
+Cache Find API latency p99999   :  526421.00 ns
+Cache Find API latency p999999  :  540743.00 ns
+Cache Find API latency p100     : 9230082.00 ns
+Cache Allocate API latency p50      :    5880.00 ns
+Cache Allocate API latency p90      :   33328.00 ns
+Cache Allocate API latency p99      :  347591.00 ns
+Cache Allocate API latency p999     : 1083713.00 ns
+Cache Allocate API latency p9999    : 2111991.00 ns
+Cache Allocate API latency p99999   : 2430483.00 ns
+Cache Allocate API latency p999999  : 2462332.00 ns
+Cache Allocate API latency p100     : 9920925.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 154 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     16,240, success: 100.00%
+Total eviction executed 140203594
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 116,042,225
+Hit Ratio     :  88.53%
+RAM Hit Ratio :  88.53%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 1330.86 million
+Total sets: 160,766,969
+get       : 8,059,589/s, success   :  87.92%
+couldExist:         0/s, success   :   0.00%
+set       :   973,596/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+15:00:21    1448.26M ops completed. 20841569 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.59% (RAM  88.59%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 20,841,569
+Items in NVM  : 0
+Alloc Attempts: 174,171,960 Success: 100.00%
+Evict Attempts: 153,308,911 Success: 100.01%
+RAM Evictions : 153,320,944
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   200.00MB
+pid 0 cid   2   144.00B memorySize:   544.00MB
+pid 0 cid   3   216.00B memorySize:   688.00MB
+pid 0 cid   4   328.00B memorySize:     1.40GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    51.97MB
+pid 0 cid  13    12.48KB memorySize:    19.99MB
+pid 0 cid  14    18.78KB memorySize:    19.99MB
+pid 0 cid  15    28.24KB memorySize:    47.99MB
+pid 0 cid  16    42.66KB memorySize:    56.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.11MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 1,448,273,909
+Hit Ratio     :  87.97%
+Cache Find API latency p50      :    1891.00 ns
+Cache Find API latency p90      :    3466.00 ns
+Cache Find API latency p99      :    6345.00 ns
+Cache Find API latency p999     :   21357.00 ns
+Cache Find API latency p9999    :  374659.00 ns
+Cache Find API latency p99999   :  514529.00 ns
+Cache Find API latency p999999  :  528516.00 ns
+Cache Find API latency p100     : 9260539.00 ns
+Cache Allocate API latency p50      :    5889.00 ns
+Cache Allocate API latency p90      :   33457.00 ns
+Cache Allocate API latency p99      :  345044.00 ns
+Cache Allocate API latency p999     : 1086606.00 ns
+Cache Allocate API latency p9999    : 2100265.00 ns
+Cache Allocate API latency p99999   : 2421725.00 ns
+Cache Allocate API latency p999999  : 2453871.00 ns
+Cache Allocate API latency p100     : 9950120.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 169 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     19,650, success: 100.00%
+Total eviction executed 153323080
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 117,406,060
+Hit Ratio     :  88.59%
+RAM Hit Ratio :  88.59%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 1448.26 million
+Total sets: 174,164,434
+get       : 8,039,632/s, success   :  87.97%
+couldExist:         0/s, success   :   0.00%
+set       :   966,830/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+15:00:36    1566.02M ops completed. 21145823 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.64% (RAM  88.64%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 21,145,823
+Items in NVM  : 0
+Alloc Attempts: 187,547,857 Success: 100.00%
+Evict Attempts: 166,376,660 Success: 100.01%
+RAM Evictions : 166,392,731
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   204.00MB
+pid 0 cid   2   144.00B memorySize:   560.00MB
+pid 0 cid   3   216.00B memorySize:   700.00MB
+pid 0 cid   4   328.00B memorySize:     1.43GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   267.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    35.98MB
+pid 0 cid  13    12.48KB memorySize:    16.00MB
+pid 0 cid  14    18.78KB memorySize:    12.00MB
+pid 0 cid  15    28.24KB memorySize:    31.99MB
+pid 0 cid  16    42.66KB memorySize:    40.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.11MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 1,566,037,121
+Hit Ratio     :  88.02%
+Cache Find API latency p50      :    1902.00 ns
+Cache Find API latency p90      :    3499.00 ns
+Cache Find API latency p99      :    6302.00 ns
+Cache Find API latency p999     :   21142.00 ns
+Cache Find API latency p9999    :  364706.00 ns
+Cache Find API latency p99999   :  500184.00 ns
+Cache Find API latency p999999  :  513732.00 ns
+Cache Find API latency p100     : 9337173.00 ns
+Cache Allocate API latency p50      :    5891.00 ns
+Cache Allocate API latency p90      :   33201.00 ns
+Cache Allocate API latency p99      :  339178.00 ns
+Cache Allocate API latency p999     : 1087118.00 ns
+Cache Allocate API latency p9999    : 2121769.00 ns
+Cache Allocate API latency p99999   : 2458032.00 ns
+Cache Allocate API latency p999999  : 2491658.00 ns
+Cache Allocate API latency p100     : 9950120.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 184 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     23,346, success: 100.00%
+Total eviction executed 166394757
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 117,763,212
+Hit Ratio     :  88.64%
+RAM Hit Ratio :  88.64%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 1566.02 million
+Total sets: 187,540,582
+get       : 8,024,591/s, success   :  88.02%
+couldExist:         0/s, success   :   0.00%
+set       :   960,994/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+15:00:51    1683.85M ops completed. 21420611 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.69% (RAM  88.69%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 21,420,611
+Items in NVM  : 0
+Alloc Attempts: 200,871,475 Success: 100.00%
+Evict Attempts: 179,418,249 Success: 100.01%
+RAM Evictions : 179,442,489
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   208.00MB
+pid 0 cid   2   144.00B memorySize:   568.00MB
+pid 0 cid   3   216.00B memorySize:   716.00MB
+pid 0 cid   4   328.00B memorySize:     1.46GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   251.90MB
+pid 0 cid  11     5.55KB memorySize:   427.75MB
+pid 0 cid  12     8.32KB memorySize:    23.99MB
+pid 0 cid  13    12.48KB memorySize:    12.00MB
+pid 0 cid  14    18.78KB memorySize:     8.00MB
+pid 0 cid  15    28.24KB memorySize:    23.99MB
+pid 0 cid  16    42.66KB memorySize:    24.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.11MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 1,683,863,613
+Hit Ratio     :  88.07%
+Cache Find API latency p50      :    1913.00 ns
+Cache Find API latency p90      :    3524.00 ns
+Cache Find API latency p99      :    6251.00 ns
+Cache Find API latency p999     :   20888.00 ns
+Cache Find API latency p9999    :  357070.00 ns
+Cache Find API latency p99999   :  489848.00 ns
+Cache Find API latency p999999  :  503126.00 ns
+Cache Find API latency p100     : 9407565.00 ns
+Cache Allocate API latency p50      :    5885.00 ns
+Cache Allocate API latency p90      :   32808.00 ns
+Cache Allocate API latency p99      :  333326.00 ns
+Cache Allocate API latency p999     : 1089214.00 ns
+Cache Allocate API latency p9999    : 2117897.00 ns
+Cache Allocate API latency p99999   : 2456273.00 ns
+Cache Allocate API latency p999999  : 2490111.00 ns
+Cache Allocate API latency p100     : 9950120.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 199 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     30,474, success: 100.00%
+Total eviction executed 179443535
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 117,826,492
+Hit Ratio     :  88.69%
+RAM Hit Ratio :  88.69%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 1683.85 million
+Total sets: 200,865,172
+get       : 8,012,105/s, success   :  88.07%
+couldExist:         0/s, success   :   0.00%
+set       :   955,756/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+15:01:06    1802.69M ops completed. 21700934 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.75% (RAM  88.75%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 21,700,934
+Items in NVM  : 0
+Alloc Attempts: 214,241,026 Success: 100.00%
+Evict Attempts: 192,496,046 Success: 100.02%
+RAM Evictions : 192,530,919
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   212.00MB
+pid 0 cid   2   144.00B memorySize:   580.00MB
+pid 0 cid   3   216.00B memorySize:   728.00MB
+pid 0 cid   4   328.00B memorySize:     1.49GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   235.91MB
+pid 0 cid  11     5.55KB memorySize:   395.77MB
+pid 0 cid  12     8.32KB memorySize:    19.99MB
+pid 0 cid  13    12.48KB memorySize:     8.00MB
+pid 0 cid  14    18.78KB memorySize:     8.00MB
+pid 0 cid  15    28.24KB memorySize:    20.00MB
+pid 0 cid  16    42.66KB memorySize:    24.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.33MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 1,802,710,599
+Hit Ratio     :  88.12%
+Cache Find API latency p50      :    1919.00 ns
+Cache Find API latency p90      :    3523.00 ns
+Cache Find API latency p99      :    6196.00 ns
+Cache Find API latency p999     :   20620.00 ns
+Cache Find API latency p9999    :  349164.00 ns
+Cache Find API latency p99999   :  478846.00 ns
+Cache Find API latency p999999  :  491814.00 ns
+Cache Find API latency p100     : 9407565.00 ns
+Cache Allocate API latency p50      :    5886.00 ns
+Cache Allocate API latency p90      :   32494.00 ns
+Cache Allocate API latency p99      :  325343.00 ns
+Cache Allocate API latency p999     : 1082291.00 ns
+Cache Allocate API latency p9999    : 2107711.00 ns
+Cache Allocate API latency p99999   : 2443911.00 ns
+Cache Allocate API latency p999999  : 2477531.00 ns
+Cache Allocate API latency p100     : 9950120.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 214 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     41,775, success: 100.00%
+Total eviction executed 192532994
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 118,846,986
+Hit Ratio     :  88.75%
+RAM Hit Ratio :  88.75%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 1802.69 million
+Total sets: 214,234,161
+get       : 8,005,724/s, success   :  88.12%
+couldExist:         0/s, success   :   0.00%
+set       :   951,410/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+15:01:21    1921.67M ops completed. 21986910 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.80% (RAM  88.80%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 21,986,910
+Items in NVM  : 0
+Alloc Attempts: 227,567,970 Success: 100.00%
+Evict Attempts: 205,524,633 Success: 100.02%
+RAM Evictions : 205,571,197
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   216.00MB
+pid 0 cid   2   144.00B memorySize:   592.00MB
+pid 0 cid   3   216.00B memorySize:   744.00MB
+pid 0 cid   4   328.00B memorySize:     1.52GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   215.92MB
+pid 0 cid  11     5.55KB memorySize:   359.79MB
+pid 0 cid  12     8.32KB memorySize:    19.99MB
+pid 0 cid  13    12.48KB memorySize:     8.00MB
+pid 0 cid  14    18.78KB memorySize:     8.00MB
+pid 0 cid  15    28.24KB memorySize:    20.00MB
+pid 0 cid  16    42.66KB memorySize:    20.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.33MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 1,921,684,800
+Hit Ratio     :  88.16%
+Cache Find API latency p50      :    1933.00 ns
+Cache Find API latency p90      :    3553.00 ns
+Cache Find API latency p99      :    6188.00 ns
+Cache Find API latency p999     :   20476.00 ns
+Cache Find API latency p9999    :  345887.00 ns
+Cache Find API latency p99999   :  473998.00 ns
+Cache Find API latency p999999  :  486809.00 ns
+Cache Find API latency p100     : 9407565.00 ns
+Cache Allocate API latency p50      :    5887.00 ns
+Cache Allocate API latency p90      :   32209.00 ns
+Cache Allocate API latency p99      :  320187.00 ns
+Cache Allocate API latency p999     : 1082457.00 ns
+Cache Allocate API latency p9999    : 2099227.00 ns
+Cache Allocate API latency p99999   : 2430967.00 ns
+Cache Allocate API latency p999999  : 2464141.00 ns
+Cache Allocate API latency p100     : 9901890.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 229 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     54,053, success: 100.00%
+Total eviction executed 205573264
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 118,974,201
+Hit Ratio     :  88.80%
+RAM Hit Ratio :  88.80%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 1921.67 million
+Total sets: 227,560,517
+get       : 8,000,723/s, success   :  88.16%
+couldExist:         0/s, success   :   0.00%
+set       :   947,432/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+15:01:36    2040.66M ops completed. 22265482 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.85% (RAM  88.85%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 22,265,482
+Items in NVM  : 0
+Alloc Attempts: 240,839,962 Success: 100.00%
+Evict Attempts: 218,504,854 Success: 100.03%
+RAM Evictions : 218,563,691
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   220.00MB
+pid 0 cid   2   144.00B memorySize:   604.00MB
+pid 0 cid   3   216.00B memorySize:   756.00MB
+pid 0 cid   4   328.00B memorySize:     1.55GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   191.93MB
+pid 0 cid  11     5.55KB memorySize:   327.81MB
+pid 0 cid  12     8.32KB memorySize:    15.99MB
+pid 0 cid  13    12.48KB memorySize:     8.00MB
+pid 0 cid  14    18.78KB memorySize:     8.00MB
+pid 0 cid  15    28.24KB memorySize:    20.00MB
+pid 0 cid  16    42.66KB memorySize:    20.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.33MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 2,040,688,935
+Hit Ratio     :  88.20%
+Cache Find API latency p50      :    1937.00 ns
+Cache Find API latency p90      :    3580.00 ns
+Cache Find API latency p99      :    6195.00 ns
+Cache Find API latency p999     :   20394.00 ns
+Cache Find API latency p9999    :  349003.00 ns
+Cache Find API latency p99999   :  479135.00 ns
+Cache Find API latency p999999  :  492149.00 ns
+Cache Find API latency p100     : 9433483.00 ns
+Cache Allocate API latency p50      :    5891.00 ns
+Cache Allocate API latency p90      :   31989.00 ns
+Cache Allocate API latency p99      :  316853.00 ns
+Cache Allocate API latency p999     : 1083355.00 ns
+Cache Allocate API latency p9999    : 2091158.00 ns
+Cache Allocate API latency p99999   : 2418692.00 ns
+Cache Allocate API latency p999999  : 2451445.00 ns
+Cache Allocate API latency p100     : 9901890.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 244 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     67,097, success: 100.00%
+Total eviction executed 218566277
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 119,004,135
+Hit Ratio     :  88.85%
+RAM Hit Ratio :  88.85%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 2040.66 million
+Total sets: 240,831,747
+get       : 7,996,404/s, success   :  88.20%
+couldExist:         0/s, success   :   0.00%
+set       :   943,706/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+15:01:51    2160.13M ops completed. 22536085 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.88% (RAM  88.88%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 22,536,085
+Items in NVM  : 0
+Alloc Attempts: 254,122,805 Success: 100.00%
+Evict Attempts: 231,505,620 Success: 100.03%
+RAM Evictions : 231,576,843
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   224.00MB
+pid 0 cid   2   144.00B memorySize:   612.00MB
+pid 0 cid   3   216.00B memorySize:   772.00MB
+pid 0 cid   4   328.00B memorySize:     1.58GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   207.95MB
+pid 0 cid  10     3.70KB memorySize:   175.93MB
+pid 0 cid  11     5.55KB memorySize:   291.83MB
+pid 0 cid  12     8.32KB memorySize:    15.99MB
+pid 0 cid  13    12.48KB memorySize:     8.00MB
+pid 0 cid  14    18.78KB memorySize:     8.00MB
+pid 0 cid  15    28.24KB memorySize:    16.00MB
+pid 0 cid  16    42.66KB memorySize:    16.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.33MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 2,160,150,956
+Hit Ratio     :  88.24%
+Cache Find API latency p50      :    1930.00 ns
+Cache Find API latency p90      :    3578.00 ns
+Cache Find API latency p99      :    6198.00 ns
+Cache Find API latency p999     :   20373.00 ns
+Cache Find API latency p9999    :  349212.00 ns
+Cache Find API latency p99999   :  479345.00 ns
+Cache Find API latency p999999  :  492359.00 ns
+Cache Find API latency p100     : 9433483.00 ns
+Cache Allocate API latency p50      :    5905.00 ns
+Cache Allocate API latency p90      :   31994.00 ns
+Cache Allocate API latency p99      :  313943.00 ns
+Cache Allocate API latency p999     : 1078128.00 ns
+Cache Allocate API latency p9999    : 2097241.00 ns
+Cache Allocate API latency p99999   : 2427991.00 ns
+Cache Allocate API latency p999999  : 2461066.00 ns
+Cache Allocate API latency p100     : 10558700.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 259 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     78,412, success: 100.00%
+Total eviction executed 231578987
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 119,462,021
+Hit Ratio     :  88.88%
+RAM Hit Ratio :  88.88%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 2160.13 million
+Total sets: 254,115,679
+get       : 7,994,286/s, success   :  88.24%
+couldExist:         0/s, success   :   0.00%
+set       :   940,440/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+15:02:06    2279.83M ops completed. 22819566 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.94% (RAM  88.94%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 22,819,566
+Items in NVM  : 0
+Alloc Attempts: 267,363,968 Success: 100.00%
+Evict Attempts: 244,448,402 Success: 100.04%
+RAM Evictions : 244,534,297
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   228.00MB
+pid 0 cid   2   144.00B memorySize:   624.00MB
+pid 0 cid   3   216.00B memorySize:   788.00MB
+pid 0 cid   4   328.00B memorySize:     1.61GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   199.95MB
+pid 0 cid  10     3.70KB memorySize:   155.94MB
+pid 0 cid  11     5.55KB memorySize:   259.85MB
+pid 0 cid  12     8.32KB memorySize:    15.99MB
+pid 0 cid  13    12.48KB memorySize:     8.00MB
+pid 0 cid  14    18.78KB memorySize:     8.00MB
+pid 0 cid  15    28.24KB memorySize:    16.00MB
+pid 0 cid  16    42.66KB memorySize:    16.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.56MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 1.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 2,279,849,660
+Hit Ratio     :  88.27%
+Cache Find API latency p50      :    1949.00 ns
+Cache Find API latency p90      :    3615.00 ns
+Cache Find API latency p99      :    6203.00 ns
+Cache Find API latency p999     :   20423.00 ns
+Cache Find API latency p9999    :  350523.00 ns
+Cache Find API latency p99999   :  481607.00 ns
+Cache Find API latency p999999  :  494715.00 ns
+Cache Find API latency p100     : 9433483.00 ns
+Cache Allocate API latency p50      :    5907.00 ns
+Cache Allocate API latency p90      :   31720.00 ns
+Cache Allocate API latency p99      :  310101.00 ns
+Cache Allocate API latency p999     : 1075903.00 ns
+Cache Allocate API latency p9999    : 2090398.00 ns
+Cache Allocate API latency p99999   : 2413909.00 ns
+Cache Allocate API latency p999999  : 2446260.00 ns
+Cache Allocate API latency p100     : 10558700.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 274 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:     93,184, success: 100.00%
+Total eviction executed 244536639
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 119,698,704
+Hit Ratio     :  88.94%
+RAM Hit Ratio :  88.94%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 2279.83 million
+Total sets: 267,356,728
+get       : 7,993,176/s, success   :  88.27%
+couldExist:         0/s, success   :   0.00%
+set       :   937,364/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+
+15:02:21    2392.87M ops completed. 23094051 items in cache. 0 items in nvm cache. 0 items evicted from nvm cache. Hit Ratio  88.98% (RAM  88.98%, NVM   0.00%).
+== Allocator Stats ==
+Items in RAM  : 23,094,051
+Items in NVM  : 0
+Alloc Attempts: 279,811,122 Success: 100.00%
+Evict Attempts: 256,606,861 Success: 100.04%
+RAM Evictions : 256,711,774
+Fraction of pool 0 used : 1.00
+pid 0 cid   0    64.00B memorySize:   320.00B
+pid 0 cid   1    96.00B memorySize:   232.00MB
+pid 0 cid   2   144.00B memorySize:   636.00MB
+pid 0 cid   3   216.00B memorySize:   801.97MB
+pid 0 cid   4   328.00B memorySize:     1.63GB
+pid 0 cid   5   496.00B memorySize:     1.95GB
+pid 0 cid   6   744.00B memorySize:   819.93MB
+pid 0 cid   7     1.09KB memorySize:   931.77MB
+pid 0 cid   8     1.64KB memorySize:   459.89MB
+pid 0 cid   9     2.46KB memorySize:   183.96MB
+pid 0 cid  10     3.70KB memorySize:   143.94MB
+pid 0 cid  11     5.55KB memorySize:   243.86MB
+pid 0 cid  12     8.32KB memorySize:    11.99MB
+pid 0 cid  13    12.48KB memorySize:     8.00MB
+pid 0 cid  14    18.78KB memorySize:     4.00MB
+pid 0 cid  15    28.24KB memorySize:    12.00MB
+pid 0 cid  16    42.66KB memorySize:    12.00MB
+pid 0 cid  17    64.00KB memorySize:     4.00MB
+pid 0 cid  18    97.52KB memorySize:     4.00MB
+pid 0 cid  19   151.70KB memorySize:     4.00MB
+pid 0 cid  20   227.55KB memorySize:     3.56MB
+pid 0 cid  21   372.36KB memorySize:     0.00B
+pid 0 cid  22   585.14KB memorySize:     0.00B
+pid 0 cid  23     1.00MB memorySize:     0.00B
+pid 0 cid   0    64.00B usageFraction: 0.00
+pid 0 cid   1    96.00B usageFraction: 1.00
+pid 0 cid   2   144.00B usageFraction: 1.00
+pid 0 cid   3   216.00B usageFraction: 0.00
+pid 0 cid   4   328.00B usageFraction: 1.00
+pid 0 cid   5   496.00B usageFraction: 1.00
+pid 0 cid   6   744.00B usageFraction: 1.00
+pid 0 cid   7     1.09KB usageFraction: 1.00
+pid 0 cid   8     1.64KB usageFraction: 1.00
+pid 0 cid   9     2.46KB usageFraction: 1.00
+pid 0 cid  10     3.70KB usageFraction: 1.00
+pid 0 cid  11     5.55KB usageFraction: 1.00
+pid 0 cid  12     8.32KB usageFraction: 1.00
+pid 0 cid  13    12.48KB usageFraction: 1.00
+pid 0 cid  14    18.78KB usageFraction: 1.00
+pid 0 cid  15    28.24KB usageFraction: 1.00
+pid 0 cid  16    42.66KB usageFraction: 1.00
+pid 0 cid  17    64.00KB usageFraction: 1.00
+pid 0 cid  18    97.52KB usageFraction: 1.00
+pid 0 cid  19   151.70KB usageFraction: 1.00
+pid 0 cid  20   227.55KB usageFraction: 0.00
+pid 0 cid  21   372.36KB usageFraction: 0.00
+pid 0 cid  22   585.14KB usageFraction: 0.00
+pid 0 cid  23     1.00MB usageFraction: 0.00
+Cache Gets    : 2,392,880,237
+Hit Ratio     :  88.31%
+Cache Find API latency p50      :    1958.00 ns
+Cache Find API latency p90      :    3636.00 ns
+Cache Find API latency p99      :    6201.00 ns
+Cache Find API latency p999     :   19486.00 ns
+Cache Find API latency p9999    :  324813.00 ns
+Cache Find API latency p99999   :  447706.00 ns
+Cache Find API latency p999999  :  459995.00 ns
+Cache Find API latency p100     : 9433483.00 ns
+Cache Allocate API latency p50      :    5818.00 ns
+Cache Allocate API latency p90      :   29199.00 ns
+Cache Allocate API latency p99      :  260207.00 ns
+Cache Allocate API latency p999     : 1004612.00 ns
+Cache Allocate API latency p9999    : 1977073.00 ns
+Cache Allocate API latency p99999   : 2275766.00 ns
+Cache Allocate API latency p999999  : 2305636.00 ns
+Cache Allocate API latency p100     : 10558700.00 ns
+NVM Gets      :               0, Coalesced :   0.00%
+NVM Puts      :               0, Success   : 100.00%, Clean   :   0.00%, AbortsFromDel   :        0, AbortsFromGet   :        0
+NVM Evicts    :               0, Clean     :   0.00%, Unclean :       0, Double          :        0
+NVM Deletes   :               0 Skipped Deletes:   0.00%
+Released 289 slabs
+  Moves     : attempts:          0, success:   0.00%
+  Evictions : attempts:    107,067, success: 100.00%
+Total eviction executed 256712376
+== Hit Ratio Stats Since Last ==
+Cache Gets    : 113,030,577
+Hit Ratio     :  88.98%
+RAM Hit Ratio :  88.98%
+NVM Hit Ratio :   0.00%
+== Throughput Stats ==
+Total Ops : 2392.87 million
+Total sets: 279,808,809
+get       : 7,970,173/s, success   :  88.31%
+couldExist:         0/s, success   :   0.00%
+set       :   931,985/s, success   : 100.00%
+del       :         0/s, found     :   0.00%
+

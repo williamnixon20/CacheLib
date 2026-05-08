@@ -173,6 +173,8 @@ class DList {
   // list.
   void moveToHead(T& node) noexcept;
 
+  void moveSuffixToHead(T& first) noexcept;
+
   T* getHead() const noexcept { return head_; }
   T* getTail() const noexcept { return tail_; }
 
@@ -392,6 +394,28 @@ void DList<T, HookPtr>::moveToHead(T& node) noexcept {
   unlink(node);
   linkAtHead(node);
 }
+
+template <typename T, DListHook<T> T::*HookPtr>
+void DList<T, HookPtr>::moveSuffixToHead(T& first) noexcept {
+  if (&first == head_) {
+    return;
+  }
+
+  T* const newTail = getPrev(first);
+  XDCHECK(newTail != nullptr);
+
+  // Detach suffix [first, ..., tail_] from the prefix.
+  setNext(*newTail, nullptr);
+
+  // Splice the suffix in front of the old head.
+  setNext(*tail_, head_);
+  setPrev(*head_, tail_);
+  setPrev(first, nullptr);
+
+  head_ = &first;
+  tail_ = newTail;
+}
+
 
 /* Iterator Implementation */
 template <typename T, DListHook<T> T::*HookPtr>

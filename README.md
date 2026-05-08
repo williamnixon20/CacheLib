@@ -1,3 +1,18 @@
+To run S4FIFO artifact, please run the following command in the root of the repository:
+
+git checkout fork-w-s4fifo
+python3 ./build/fbcode_builder/getdeps.py build \
+  cachelib \
+  --no-tests \
+  --build-type=RelWithDebInfo\
+  --src-dir="/home/cc/s4fifoeval" \
+  --scratch-path="/home/cc/s4fifoeval/deps" \
+  --install-dir="/home/cc/s4fifoeval/opt"
+
+python3 runner.py ./config_hit_ratio_longer
+
+The experiments should then run. After a while, visit analyzer.ipynb to analyze the results.
+
 <p align="center">
   <img width="500" height="140" alt="CacheLib" src="website/static/img/CacheLib-Logo-Large-transp.png">
 </p>

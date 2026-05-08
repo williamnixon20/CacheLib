@@ -557,13 +557,7 @@ Cache<Allocator>::Cache(const CacheConfig& config,
   allocatorConfig_.enablePoolRebalancing(
       config_.getRebalanceStrategy(),
       std::chrono::seconds(config_.poolRebalanceIntervalSec));
-  printf("Function enable tailhits is %s", config_.enableTailHitsTracking ? "true" : "false");
-
-  if (config.enableTailHitsTracking) {
-    printf("Enabling tail hits tracking\n");
-    allocatorConfig_.enableTailHitsTracking();
-  }
-
+      
   if (config_.moveOnSlabRelease && movingSync != nullptr) {
     allocatorConfig_.enableMovingOnSlabRelease(
         [](Item& oldItem, Item& newItem, Item* parentPtr) {

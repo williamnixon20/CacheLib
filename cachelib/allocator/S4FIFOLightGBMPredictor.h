@@ -123,9 +123,9 @@ inline void prepareModelInput(const S4FIFOFeatureVector& fv, double* input) {
     
     // === WSS-Estimated Ratio ===
     // ratio_estimate = cache_size / working_set_size
-    // cache_size = exp(log_C)
+    // cache_size = 10 ^ log_C
     // working_set_size = total_reqs * rho_unique
-    double cache_size = std::exp(log_C);
+    double cache_size = std::pow(10.0, log_C);
     double working_set_size = static_cast<double>(fv.totalRequests) * fv.uniqueRatio;
     double ratio_estimate = cache_size / (working_set_size + 1e-6);
     

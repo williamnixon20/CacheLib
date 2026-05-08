@@ -4590,13 +4590,9 @@ PoolId CacheAllocator<CacheTrait>::addPool(
   createMMContainers(pid, std::move(config));
   setRebalanceStrategy(pid, std::move(rebalanceStrategy));
   setResizeStrategy(pid, std::move(resizeStrategy));
-  printf("Constructor called\n");
   auto& pool = allocator_->getPool(pid);
   for (unsigned int cid = 0; cid < pool.getNumClassId(); ++cid) {
     MMConfig mmConfig = config;
-    printf("Adding extra config for pool %u, class %u, tracktailhits: %u, allocsperslab: %u\n", pid, cid, config_.trackTailHits,
-           pool.getAllocationClass(static_cast<ClassId>(cid))
-               .getAllocsPerSlab());
     mmConfig.addExtraConfig(
         (config_.trackTailHits)
             ? pool.getAllocationClass(static_cast<ClassId>(cid))

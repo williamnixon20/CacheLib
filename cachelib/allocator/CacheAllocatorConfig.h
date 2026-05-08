@@ -1149,11 +1149,6 @@ CacheAllocatorConfig<T>& CacheAllocatorConfig<T>::setNumShards(size_t shards) {
 
 template <typename T>
 const CacheAllocatorConfig<T>& CacheAllocatorConfig<T>::validate() const {
-  // we can track tail hits only if MMType is MM2Q
-  if (trackTailHits && T::MMType::kId != MM2Q::kId) {
-    printf("Tail hits tracking cannot be enabled on MMTypes except MM2Q.");
-  }
-
   size_t maxCacheSize = T::CompressedPtrType::getMaxAddressableSize();
   // Configured cache size should not exceed the maximal addressable space for
   // cache.
